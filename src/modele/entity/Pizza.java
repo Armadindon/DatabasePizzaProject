@@ -9,10 +9,10 @@ public class Pizza {
 	private String nomPizza;
 	private double prixPizza;
 	private TaillePizza taillePizza;
-	private List<Pizza> ingredients;
+	private List<Ingredient> ingredients;
 	private List<Pizza> commandes;
 
-	public Pizza(int idPizza, String nomPizza, double prixPizza, TaillePizza taillePizza, List<Pizza> ingredients,
+	public Pizza(int idPizza, String nomPizza, double prixPizza, TaillePizza taillePizza, List<Ingredient> ingredients,
 			List<Pizza> commandes) {
 		super();
 		this.idPizza = idPizza;
@@ -59,11 +59,11 @@ public class Pizza {
 		this.taillePizza = taillePizza;
 	}
 
-	public List<Pizza> getIngredients() {
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(List<Pizza> ingredients) {
+	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
 

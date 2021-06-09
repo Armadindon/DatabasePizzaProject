@@ -6,10 +6,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import modele.entity.Adresse;
 import modele.entity.Client;
 import modele.entity.Ingredient;
+import modele.entity.Pizza;
 
 public class IngredientManager implements EntityManager<Ingredient> {
 
@@ -30,6 +32,17 @@ public class IngredientManager implements EntityManager<Ingredient> {
 		try {
 			ingredient.setIdIngredient(rs.getInt(ID_COLUMN));
 			ingredient.setNomIngredient(rs.getString("nom_ingredient"));
+		
+			List<Pizza> pizzas = new ArrayList<>();
+			PizzaManager pm = new PizzaManager(connection);
+			Statement stmt = connection.createStatement();
+			ResultSet results = stmt.executeQuery(
+					"SELECT id_pizza FROM Garnir WHERE " + ID_COLUMN + " = " + ingredient.getIdIngredient() + ";");
+
+			while (results.next()) {
+				pizzas.add(pm.getOneById(results.getInt(0)));
+			}
+			ingredient.setWhereUsed(pizzas);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -100,8 +113,31 @@ public class IngredientManager implements EntityManager<Ingredient> {
 			+ "' WHERE " + ID_COLUMN + "=" + entity.getIdIngredient()
 			+ ";");
 			
-			//TODO: Update les ingredients en fonction de la liste
+			List<Pizza> pizzas = new ArrayList<>();
+			PizzaManager pm = new PizzaManager(connection);
+			ResultSet results = stmt.executeQuery(
+					"SELECT id_pizza FROM Garnir WHERE " + ID_COLUMN + " = " + entity.getIdIngredient() + ";");
+
+			while (results.next()) {
+				pizzas.add(pm.getOneById(results.getInt(0)));
+			}
+
+			// On supprime tous les éléments qui ne sont pas dans entity mais qui sont en
+			// bdd
+			List<Pizza> toDelete = entity.getWhereUsed().stream()
+					.filter((Pizza pizza) -> !pizzas.contains(pizza)).collect(Collectors.toList());
 			
+			for(Pizza pizza : toDelete) {
+				stmt.executeUpdate("DELETE FROM Garnir WHERE "+ID_COLUMN+" = "+entity.getIdIngredient()+" AND id_pizza = " + pizza.getIdPizza()+";");
+			}
+			
+			// On supprime tous les éléments qui sont dans entity mais qui sont pas en bdd
+			List<Pizza> toAdd = entity.getWhereUsed().stream()
+					.filter((Pizza pizza) -> pizzas.contains(pizza)).collect(Collectors.toList());
+			
+			for(Pizza pizza : toAdd) {
+				stmt.executeUpdate("INSERT INTO Garnir VALUES ("+pizza.getIdPizza()+", " + entity.getIdIngredient()+");");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
