@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS Pizza(
    id_pizza INT AUTO_INCREMENT,
    nom_pizza VARCHAR(50),
    prix_pizza DECIMAL(4,2),
-   taille_pizza ENUM,
+   taille_pizza ENUM ('naine','humaine','ogresse'),
    PRIMARY KEY(id_pizza)
 );
 CREATE TABLE IF NOT EXISTS Ingrédient(
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS Adresse(
 CREATE TABLE IF NOT EXISTS Vehicule(
    id_vehicule INT AUTO_INCREMENT,
    immatricule_vehicule VARCHAR(7),
-   type_vehicule ENUM,
+   type_vehicule ENUM ('voiture','moto'),
    PRIMARY KEY(id_vehicule)
 );
 CREATE TABLE IF NOT EXISTS Client(
