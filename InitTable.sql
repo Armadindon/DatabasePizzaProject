@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS Adresse(
    ville_adresse VARCHAR(100),
    codePostal_adresse VARCHAR(10),
    rue_adresse INT,
-   numéro_adresse VARCHAR(10),
+   numero_adresse VARCHAR(10),
    PRIMARY KEY(id_adresse)
 );
 CREATE TABLE IF NOT EXISTS Vehicule(
