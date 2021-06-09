@@ -1,4 +1,4 @@
-package Modele;
+package modele.entity;
 
 import java.util.Objects;
 
@@ -16,6 +16,10 @@ public class Adresse {
 		this.codePostal = codePostal;
 		this.rue = rue;
 		this.numero = numero;
+	}
+
+	public Adresse() {
+		super();
 	}
 
 	public int getIdAdresse() {

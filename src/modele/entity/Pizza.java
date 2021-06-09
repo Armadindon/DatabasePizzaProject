@@ -1,4 +1,4 @@
-package Modele;
+package modele.entity;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +21,10 @@ public class Pizza {
 		this.taillePizza = taillePizza;
 		this.ingredients = ingredients;
 		this.commandes = commandes;
+	}
+
+	public Pizza() {
+		super();
 	}
 
 	public int getIdPizza() {

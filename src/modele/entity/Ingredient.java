@@ -1,4 +1,4 @@
-package Modele;
+package modele.entity;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +14,10 @@ public class Ingredient {
 		this.idIngredient = idIngredient;
 		this.nomIngredient = nomIngredient;
 		this.whereUsed = whereUsed;
+	}
+
+	public Ingredient() {
+		super();
 	}
 
 	public int getIdIngredient() {

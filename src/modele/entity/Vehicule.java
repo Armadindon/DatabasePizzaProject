@@ -1,4 +1,4 @@
-package Modele;
+package modele.entity;
 
 import java.util.Objects;
 
@@ -13,6 +13,10 @@ public class Vehicule {
 		this.idVehicule = idVehicule;
 		this.immatriculationVehicule = immatriculationVehicule;
 		this.type = type;
+	}
+
+	public Vehicule() {
+		super();
 	}
 
 	public int getIdVehicule() {

@@ -1,4 +1,4 @@
-package Modele;
+package modele.entity;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +21,10 @@ public class Livraison {
 		this.vehicule = vehicule;
 		this.adresse = adresse;
 		this.pizzas = pizzas;
+	}
+
+	public Livraison() {
+		super();
 	}
 
 	public int getIdLivraison() {

@@ -1,4 +1,4 @@
-package Modele;
+package modele.entity;
 
 import java.util.Objects;
 
@@ -14,6 +14,10 @@ public class Client {
 		this.nomClient = nomClient;
 		this.prenomClient = prenomClient;
 		this.soldeClient = soldeClient;
+	}
+
+	public Client() {
+		super();
 	}
 
 	public int getIdClient() {
