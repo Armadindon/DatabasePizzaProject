@@ -7,6 +7,7 @@ public class Client {
 	private String nomClient;
 	private String prenomClient;
 	private double soldeClient;
+	private Adresse adresse;
 
 	public Client(int idClient, String nomClient, String prenomClient, double soldeClient) {
 		super();
@@ -18,6 +19,14 @@ public class Client {
 
 	public Client() {
 		super();
+	}
+
+	public Adresse getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(Adresse adresse) {
+		this.adresse = adresse;
 	}
 
 	public int getIdClient() {
@@ -54,7 +63,7 @@ public class Client {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(idClient, nomClient, prenomClient, soldeClient);
+		return Objects.hash(adresse, idClient, nomClient, prenomClient, soldeClient);
 	}
 
 	@Override
@@ -64,15 +73,15 @@ public class Client {
 		if (!(obj instanceof Client))
 			return false;
 		Client other = (Client) obj;
-		return idClient == other.idClient && Objects.equals(nomClient, other.nomClient)
-				&& Objects.equals(prenomClient, other.prenomClient)
+		return Objects.equals(adresse, other.adresse) && idClient == other.idClient
+				&& Objects.equals(nomClient, other.nomClient) && Objects.equals(prenomClient, other.prenomClient)
 				&& Double.doubleToLongBits(soldeClient) == Double.doubleToLongBits(other.soldeClient);
 	}
 
 	@Override
 	public String toString() {
 		return "Client [idClient=" + idClient + ", nomClient=" + nomClient + ", prenomClient=" + prenomClient
-				+ ", soldeClient=" + soldeClient + "]";
+				+ ", soldeClient=" + soldeClient + ", adresse=" + adresse + "]";
 	}
 
 }
