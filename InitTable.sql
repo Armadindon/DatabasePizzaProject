@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS Livraison(
    PRIMARY KEY(id_livraison),
    FOREIGN KEY(id_client) REFERENCES Client(id_client),
    FOREIGN KEY(id_livreur) REFERENCES Livreur(id_livreur),
-   FOREIGN KEY(id_vehicule) REFERENCES Véhicule(id_vehicule),
+   FOREIGN KEY(id_vehicule) REFERENCES Vehicule(id_vehicule),
    FOREIGN KEY(id_adresse) REFERENCES Adresse(id_adresse)
 );
 CREATE TABLE IF NOT EXISTS Garnir(
