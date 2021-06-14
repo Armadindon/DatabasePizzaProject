@@ -5,10 +5,9 @@ CREATE TABLE IF NOT EXISTS Pizza(
    id_pizza INT AUTO_INCREMENT,
    nom_pizza VARCHAR(50),
    prix_pizza DECIMAL(4,2),
-   taille_pizza ENUM ('naine','humaine','ogresse'),
    PRIMARY KEY(id_pizza)
 );
-CREATE TABLE IF NOT EXISTS Ingrédient(
+CREATE TABLE IF NOT EXISTS Ingredient(
    id_ingredient INT AUTO_INCREMENT,
    nom_ingredient VARCHAR(50),
    PRIMARY KEY(id_ingredient)
@@ -63,11 +62,12 @@ CREATE TABLE IF NOT EXISTS Garnir(
    id_ingredient INT,
    PRIMARY KEY(id_pizza, id_ingredient),
    FOREIGN KEY(id_pizza) REFERENCES Pizza(id_pizza),
-   FOREIGN KEY(id_ingredient) REFERENCES Ingrédient(id_ingredient)
+   FOREIGN KEY(id_ingredient) REFERENCES Ingredient(id_ingredient)
 );
 CREATE TABLE IF NOT EXISTS Comporter(
    id_pizza INT AUTO_INCREMENT,
    id_livraison INT,
+   taille_pizza ENUM ('naine','humaine','ogresse'),
    PRIMARY KEY(id_pizza, id_livraison),
    FOREIGN KEY(id_pizza) REFERENCES Pizza(id_pizza),
    FOREIGN KEY(id_livraison) REFERENCES Livraison(id_livraison)
