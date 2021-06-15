@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS Adresse(
 CREATE TABLE IF NOT EXISTS Vehicule(
    id_vehicule INT AUTO_INCREMENT,
    immatricule_vehicule VARCHAR(9),
-   type_vehicule ENUM ('voiture','moto'),
+   type_vehicule ENUM ('VOITURE','MOIO'),
    PRIMARY KEY(id_vehicule)
 );
 CREATE TABLE IF NOT EXISTS Client(

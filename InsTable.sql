@@ -62,9 +62,9 @@ VALUES (1, 5),
     (6, 4),
     (6, 6);
 INSERT INTO Vehicule (immatricule_vehicule, type_vehicule)
-VALUES ('AG-963-SR', 'voiture'),
-    ('BK-568-SR', 'moto'),
-    ('CD-455-GK', 'moto');
+VALUES ('AG-963-SR', 'VOITURE'),
+    ('BK-568-SR', 'MOTO'),
+    ('CD-455-GK', 'MOTO');
 INSERT INTO Livreur (nom_livreur, prenom_livreur, id_adresse)
 VALUES ('ESCOBAR', 'PABLO', 1),
     ('ONYME', 'ANE', 2),
