@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import modele.entity.Client;
 import modele.entity.Ingredient;
+import modele.entity.Livraison;
+import modele.entity.Livreur;
 import modele.entity.Pizza;
 import modele.entity.TaillePizza;
 
@@ -46,6 +48,16 @@ public class PizzaManager implements EntityManager<Pizza> {
 			}
 			pizza.setIngredients(ingredients);
 
+			List<Livraison> livraisons = new ArrayList<>();
+			LivraisonManager lm = new LivraisonManager(connection);
+			results = stmt.executeQuery(
+					"SELECT id_livraison FROM Comporter WHERE " + ID_COLUMN + " = " + pizza.getIdPizza() + ";");
+
+			while (results.next()) {
+				livraisons.add(lm.getOneById(results.getInt(0)));
+			}
+			pizza.setCommandes(livraisons);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -112,7 +124,7 @@ public class PizzaManager implements EntityManager<Pizza> {
 		try {
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate("UPDATE " + TABLE_NAME + " SET " + "nom_pizza ='" + entity.getNomPizza()
-					+ "' prix_pizza =" + entity.getPrixPizza() + " taille_pizza ='" + entity.getTaillePizza().toString()
+					+ "', prix_pizza =" + entity.getPrixPizza() + ", taille_pizza ='" + entity.getTaillePizza().toString()
 					+ "' WHERE " + ID_COLUMN + "=" + entity.getIdPizza() + ";");
 
 			List<Ingredient> ingredients = new ArrayList<>();
@@ -140,9 +152,47 @@ public class PizzaManager implements EntityManager<Pizza> {
 			for(Ingredient ing : toAdd) {
 				stmt.executeUpdate("INSERT INTO Garnir VALUES ("+entity.getIdPizza()+", " + ing.getIdIngredient()+");");
 			}
+			
+			List<Livraison> livraisons = new ArrayList<>();
+			LivraisonManager lm = new LivraisonManager(connection);
+			results = stmt.executeQuery(
+					"SELECT id_pizza FROM Comporter WHERE " + ID_COLUMN + " = " + entity.getIdPizza() + ";");
+
+			while (results.next()) {
+				livraisons.add(lm.getOneById(results.getInt(0)));
+			}
+
+			// On supprime tous les éléments qui ne sont pas dans entity mais qui sont en
+			// bdd
+			List<Livraison> toDeleteLivraison = entity.getCommandes().stream()
+					.filter((Livraison livraison) -> !livraisons.contains(livraison)).collect(Collectors.toList());
+			
+			for(Livraison livraison : toDeleteLivraison) {
+				stmt.executeUpdate("DELETE FROM Comporter WHERE "+ID_COLUMN+" = "+entity.getIdPizza()+" AND id_livraison = " + livraison.getIdLivraison()+";");
+			}
+			
+			// On supprime tous les éléments qui sont dans entity mais qui sont pas en bdd
+			List<Livraison> toAddLivraison = entity.getCommandes().stream()
+					.filter((Livraison livraison) -> livraisons.contains(livraison)).collect(Collectors.toList());
+			
+			for(Livraison livraison : toAddLivraison) {
+				stmt.executeUpdate("INSERT INTO Comporter VALUES ("+entity.getIdPizza()+", " + livraison.getIdLivraison()+");");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void addOne(Pizza entity) {
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomPizza() + "', '"
+					+ entity.getPrixPizza() + "', '" + entity.getTaillePizza() + "');");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

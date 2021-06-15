@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import modele.entity.Livraison;
 import modele.entity.Livreur;
 
 public class LivreurManager implements EntityManager<Livreur> {
@@ -95,11 +96,23 @@ public class LivreurManager implements EntityManager<Livreur> {
 		try {
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate("UPDATE " + TABLE_NAME + " SET " + "nom_livreur ='" + entity.getNomLivreur()
-					+ "' prenom_livreur ='" + entity.getPrenomLivreur() + "id_adresse ="
+					+ "', prenom_livreur ='" + entity.getPrenomLivreur() + ", id_adresse ="
 					+ entity.getAdresse().getIdAdresse() + " WHERE " + ID_COLUMN + "=" + entity.getIdLivreur() + ";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void addOne(Livreur entity) {
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomLivreur() + "', '"
+					+ entity.getPrenomLivreur() + "', " + entity.getAdresse().getIdAdresse() + ");");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

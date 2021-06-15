@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modele.entity.Client;
+import modele.entity.Pizza;
 import modele.entity.TypeVehicule;
 import modele.entity.Vehicule;
 
@@ -21,7 +22,7 @@ public class VehiculeManager implements EntityManager<Vehicule> {
 	public VehiculeManager(Connection c) {
 		this.connection = c;
 	}
-	
+
 	@Override
 	public Vehicule processLine(ResultSet rs) {
 		Vehicule vehicule = new Vehicule();
@@ -89,20 +90,31 @@ public class VehiculeManager implements EntityManager<Vehicule> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
 	public void updateOne(Vehicule entity) {
 		try {
 			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("UPDATE " + TABLE_NAME + " SET " 
-			+ "immatricule_vehicule ='" + entity.getImmatriculationVehicule()	
-			+ "' type_vehicule ='" + entity.getType().toString() 
-			+ "' WHERE " + ID_COLUMN + "=" + entity.getIdVehicule() + ";");
+			stmt.executeUpdate("UPDATE " + TABLE_NAME + " SET " + "immatricule_vehicule ='"
+					+ entity.getImmatriculationVehicule() + "', type_vehicule ='" + entity.getType().toString()
+					+ "' WHERE " + ID_COLUMN + "=" + entity.getIdVehicule() + ";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void addOne(Vehicule entity) {
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getImmatriculationVehicule() + "', '"
+					+ entity.getType() + "');");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

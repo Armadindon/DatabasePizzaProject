@@ -95,13 +95,25 @@ public class AdresseManager implements EntityManager<Adresse> {
 	public void updateOne(Adresse entity) {
 		try {
 			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("UPDATE " + TABLE_NAME + " SET " + "ville_adresse =" + entity.getIdAdresse()
-					+ "codePostal_adresse =" + entity.getCodePostal() + "rue_adresse =" + entity.getRue()
-					+ "numero_adresse =" + entity.getNumero() + " WHERE " + ID_COLUMN + "=" + entity.getIdAdresse()
+			stmt.executeUpdate("UPDATE " + TABLE_NAME + " SET " + "ville_adresse ='" + entity.getIdAdresse()
+					+ "', codePostal_adresse ='" + entity.getCodePostal() + "', rue_adresse ='" + entity.getRue()
+					+ "', numero_adresse ='" + entity.getNumero() + "' WHERE " + ID_COLUMN + "=" + entity.getIdAdresse()
 					+ ";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void addOne(Adresse entity) {
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getVille() + "', '"
+					+ entity.getCodePostal() + "', '" + entity.getRue() + "', '" + entity.getNumero() + "');");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
