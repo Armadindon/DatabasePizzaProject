@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="667.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InvoiceController">
+   <children>
+      <Text layoutX="14.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rapizz">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Label layoutX="14.0" layoutY="125.0" text="Nom du livreur" />
+      <Text fx:id="t_delivManName" layoutX="14.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="t_delivManForename" layoutX="14.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Label layoutX="14.0" layoutY="222.0" text="Véhicule utilisé" />
+      <Text fx:id="t_vehiculeType" layoutX="14.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="t_vehiculeMatri" layoutX="14.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Label layoutX="14.0" layoutY="313.0" text="Client" />
+      <Text fx:id="t_clientName" layoutX="14.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="t_clientForename" layoutX="14.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="t_clientAddress" layoutX="14.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Label layoutX="14.0" layoutY="441.0" text="Date commande" />
+      <Text fx:id="t_dateDelivery" layoutX="14.0" layoutY="486.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="t_dateLate" layoutX="14.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Label layoutX="14.0" layoutY="532.0" text="Prix" />
+      <Text fx:id="t_totalPrice" layoutX="14.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <TableView fx:id="tv_pizzaTab" layoutX="244.0" layoutY="17.0" prefHeight="485.0" prefWidth="296.0">
+        <columns>
+            <TableColumn fx:id="tvColumn_nbr" prefWidth="60.0" text="Nbr" />
+          <TableColumn fx:id="tvColumn_Pizza" prefWidth="101.0" text="Pizza" />
+            <TableColumn fx:id="tvColumn_length" prefWidth="87.0" text="Taille" />
+          <TableColumn fx:id="tvColumn_price" prefWidth="47.0" text="Prix" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
