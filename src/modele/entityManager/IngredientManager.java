@@ -142,5 +142,15 @@ public class IngredientManager implements EntityManager<Ingredient> {
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void addOne(Ingredient entity) {
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomIngredient() + "');");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

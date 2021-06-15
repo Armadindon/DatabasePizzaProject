@@ -104,4 +104,16 @@ public class AdresseManager implements EntityManager<Adresse> {
 		}
 	}
 
+	@Override
+	public void addOne(Adresse entity) {
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getVille() + "', '"
+					+ entity.getCodePostal() + "', '" + entity.getRue() + "', '" + entity.getNumero() + "');");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }

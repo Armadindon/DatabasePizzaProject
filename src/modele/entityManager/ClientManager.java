@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import modele.entity.Adresse;
 import modele.entity.Client;
 
 public class ClientManager implements EntityManager<Client> {
@@ -102,6 +103,18 @@ public class ClientManager implements EntityManager<Client> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void addOne(Client entity) {
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomClient() + "', '"
+					+ entity.getPrenomClient() + "', " + entity.getSoldeClient() + ", " + entity.getAdresse().getIdAdresse() + ");");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

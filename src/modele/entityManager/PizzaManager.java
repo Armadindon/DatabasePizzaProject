@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import modele.entity.Client;
 import modele.entity.Ingredient;
 import modele.entity.Livraison;
+import modele.entity.Livreur;
 import modele.entity.Pizza;
 import modele.entity.TaillePizza;
 
@@ -180,6 +181,18 @@ public class PizzaManager implements EntityManager<Pizza> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void addOne(Pizza entity) {
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomPizza() + "', '"
+					+ entity.getPrixPizza() + "', '" + entity.getTaillePizza() + "');");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

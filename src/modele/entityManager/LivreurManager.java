@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import modele.entity.Livraison;
 import modele.entity.Livreur;
 
 public class LivreurManager implements EntityManager<Livreur> {
@@ -100,6 +101,18 @@ public class LivreurManager implements EntityManager<Livreur> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void addOne(Livreur entity) {
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomLivreur() + "', '"
+					+ entity.getPrenomLivreur() + "', " + entity.getAdresse().getIdAdresse() + ");");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
