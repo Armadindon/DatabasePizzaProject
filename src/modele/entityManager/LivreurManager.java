@@ -95,7 +95,7 @@ public class LivreurManager implements EntityManager<Livreur> {
 		try {
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate("UPDATE " + TABLE_NAME + " SET " + "nom_livreur ='" + entity.getNomLivreur()
-					+ "' prenom_livreur ='" + entity.getPrenomLivreur() + "id_adresse ="
+					+ "', prenom_livreur ='" + entity.getPrenomLivreur() + ", id_adresse ="
 					+ entity.getAdresse().getIdAdresse() + " WHERE " + ID_COLUMN + "=" + entity.getIdLivreur() + ";");
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -98,7 +98,7 @@ public class VehiculeManager implements EntityManager<Vehicule> {
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate("UPDATE " + TABLE_NAME + " SET " 
 			+ "immatricule_vehicule ='" + entity.getImmatriculationVehicule()	
-			+ "' type_vehicule ='" + entity.getType().toString() 
+			+ "', type_vehicule ='" + entity.getType().toString() 
 			+ "' WHERE " + ID_COLUMN + "=" + entity.getIdVehicule() + ";");
 		} catch (SQLException e) {
 			e.printStackTrace();

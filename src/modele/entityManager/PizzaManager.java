@@ -123,7 +123,7 @@ public class PizzaManager implements EntityManager<Pizza> {
 		try {
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate("UPDATE " + TABLE_NAME + " SET " + "nom_pizza ='" + entity.getNomPizza()
-					+ "' prix_pizza =" + entity.getPrixPizza() + " taille_pizza ='" + entity.getTaillePizza().toString()
+					+ "', prix_pizza =" + entity.getPrixPizza() + ", taille_pizza ='" + entity.getTaillePizza().toString()
 					+ "' WHERE " + ID_COLUMN + "=" + entity.getIdPizza() + ";");
 
 			List<Ingredient> ingredients = new ArrayList<>();
