@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,10 +8,14 @@ import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class ConnectController {
 
@@ -31,13 +36,8 @@ public class ConnectController {
     @FXML
     private Button bt_connect;
 
-    public ConnectController() {
-    	
-    }
-    
-
     /***
-     * Fonction affiliï¿½e au bouton de connexion
+     * Fonction affiliée au bouton de connexion
      * @param event
      */
     @FXML
