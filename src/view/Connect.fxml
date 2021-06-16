@@ -14,10 +14,12 @@
             <Font size="30.0" />
          </font>
       </Text>
-      <TextField fx:id="tf_login" layoutX="198.0" layoutY="252.0" />
-      <TextField fx:id="tf_password" layoutX="198.0" layoutY="334.0" />
-      <Label layoutX="198.0" layoutY="308.0" text="Mot de passe" />
-      <Label layoutX="198.0" layoutY="225.0" text="Nom d'utilisateur" />
-      <Button fx:id="bt_connect" layoutX="216.0" layoutY="402.0" mnemonicParsing="false" onAction="#validateConnection" prefHeight="47.0" prefWidth="109.0" style="-fx-background-color: #0d6efd;" text="Connexion" textFill="WHITE" />
+      <Label layoutX="198.0" layoutY="193.0" text="Adresse de la BDD" />
+      <TextField fx:id="tf_bdd" layoutX="198.0" layoutY="220.0" />
+      <Label layoutX="198.0" layoutY="360.0" text="Mot de passe" />
+      <TextField fx:id="tf_password" layoutX="198.0" layoutY="386.0" />
+      <Label layoutX="198.0" layoutY="277.0" text="Nom d'utilisateur" />
+      <TextField fx:id="tf_login" layoutX="198.0" layoutY="304.0" />
+      <Button fx:id="bt_connect" layoutX="216.0" layoutY="454.0" mnemonicParsing="false" onAction="#validateConnection" prefHeight="47.0" prefWidth="109.0" style="-fx-background-color: #0d6efd;" text="Connexion" textFill="WHITE" />
    </children>
 </AnchorPane>

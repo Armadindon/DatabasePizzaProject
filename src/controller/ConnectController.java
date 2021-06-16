@@ -1,6 +1,8 @@
 package controller;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,5 +38,19 @@ public class ConnectController {
     void validateConnection(ActionEvent event) {
     	System.out.println(tf_login.getText() + " " + tf_password.getText());
     }
+    
+    public void databaseConnection(String driver, String url, String user, String pwd) {
+		try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(url, user, pwd);
+        } catch (ClassNotFoundException e) {
+            System.err.println("Impossible de trouver le driver");
+            e.printStackTrace();
+        } catch (SQLException exp) {
+        	System.out.println("SQLException: " + exp.getMessage());
+            System.out.println("SQLState: " + exp.getSQLState());
+            System.out.println("VendorError: " + exp.getErrorCode());
+        }
+	}
 
 }
