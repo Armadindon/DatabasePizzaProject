@@ -12,7 +12,7 @@ public final class ApplicationManager {
 	
 	private static ApplicationManager INSTANCE = null;
 	
-	public ApplicationManager getInstance() {
+	public static ApplicationManager getInstance() {
 		if(INSTANCE == null) INSTANCE = new ApplicationManager();		
 		return INSTANCE;
 	}

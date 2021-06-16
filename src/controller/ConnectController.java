@@ -53,10 +53,13 @@ public class ConnectController {
 	      Stage stage = (Stage) node.getScene().getWindow();
 	      stage.close();
 	      
+	      //On Set la connection sur le singleton
+	      ApplicationManager.getInstance().setDatabaseConnection(connection);
+	      
+	      
 	      try {
 		        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/Menu.fxml"));
 		        
-		        stage.setUserData(connection);
 		        Scene scene = new Scene(root);
 		        stage.setScene(scene);
 		        stage.show();

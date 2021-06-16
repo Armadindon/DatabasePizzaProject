@@ -1,5 +1,7 @@
 package controller;
 
+import java.sql.Connection;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -8,6 +10,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 public class MenuController {
+	
+	private Connection c;
 
     @FXML
     private AnchorPane ap_menu;
@@ -53,5 +57,9 @@ public class MenuController {
 
     @FXML
     private TableColumn<?, ?> tvColumn_ingredients;
+    
+    public MenuController() {
+		c = ApplicationManager.getInstance().getDatabaseConnection();
+	}
 
 }
