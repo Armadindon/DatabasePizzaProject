@@ -43,6 +43,32 @@ public class ConnectController {
     @FXML
     void validateConnection(ActionEvent event) {
     	databaseConnection("org.mariadb.jdbc.Driver", tf_bdd.getText(), tf_password.getText(), tf_login.getText());
+    
+    	//sendData(event);
+    }
+    
+    @FXML
+    private void sendData(ActionEvent event) {
+	      // Step 2
+	      Node node = (Node) event.getSource();
+	      // Step 3
+	      Stage stage = (Stage) node.getScene().getWindow();
+	      stage.close();
+	      
+	      try {
+		        // Step 4
+		        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/Menu.fxml"));
+		        // Step 5
+		        stage.setUserData(connection);
+		        // Step 6
+		        Scene scene = new Scene(root);
+		        stage.setScene(scene);
+		        // Step 7
+		        stage.show();
+		        
+	      } catch (IOException e) {
+	    	  System.err.println(String.format("Error: %s", e.getMessage()));
+	      }
     }
     
     public void databaseConnection(String driver, String url, String user, String pwd) {
