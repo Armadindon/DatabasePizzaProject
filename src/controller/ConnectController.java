@@ -37,12 +37,12 @@ public class ConnectController {
     private Button bt_connect;
 
     /***
-     * Fonction affiliée au bouton de connexion
+     * Fonction affiliï¿½e au bouton de connexion
      * @param event
      */
     @FXML
     void validateConnection(ActionEvent event) {
-    	databaseConnection("com.mysql.cj.jdbc.Driver", tf_bdd.getText(), tf_password.getText(), tf_login.getText());
+    	databaseConnection("org.mariadb.jdbc.Driver", tf_bdd.getText(), tf_password.getText(), tf_login.getText());
     }
     
     public void databaseConnection(String driver, String url, String user, String pwd) {
