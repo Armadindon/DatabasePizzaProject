@@ -52,7 +52,7 @@ public class LivraisonManager implements EntityManager<Livraison> {
 					"SELECT id_pizza FROM Comporter WHERE " + ID_COLUMN + " = " + livraison.getIdLivraison() + ";");
 
 			while (results.next()) {
-				pizzas.add(pm.getOneById(results.getInt(0)));
+				pizzas.add(pm.getOneById(results.getInt(1)));
 			}
 			livraison.setPizzas(pizzas);
 		} catch (SQLException e) {

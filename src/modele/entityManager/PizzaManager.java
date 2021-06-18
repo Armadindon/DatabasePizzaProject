@@ -44,7 +44,7 @@ public class PizzaManager implements EntityManager<Pizza> {
 					"SELECT id_ingredient FROM Garnir WHERE " + ID_COLUMN + " = " + pizza.getIdPizza() + ";");
 
 			while (results.next()) {
-				ingredients.add(igm.getOneById(results.getInt(0)));
+				ingredients.add(igm.getOneById(results.getInt(1)));
 			}
 			pizza.setIngredients(ingredients);
 
@@ -54,7 +54,7 @@ public class PizzaManager implements EntityManager<Pizza> {
 					"SELECT id_livraison FROM Comporter WHERE " + ID_COLUMN + " = " + pizza.getIdPizza() + ";");
 
 			while (results.next()) {
-				livraisons.add(lm.getOneById(results.getInt(0)));
+				livraisons.add(lm.getOneById(results.getInt(1)));
 			}
 			pizza.setCommandes(livraisons);
 			

@@ -40,7 +40,7 @@ public class IngredientManager implements EntityManager<Ingredient> {
 					"SELECT id_pizza FROM Garnir WHERE " + ID_COLUMN + " = " + ingredient.getIdIngredient() + ";");
 
 			while (results.next()) {
-				pizzas.add(pm.getOneById(results.getInt(0)));
+				pizzas.add(pm.getOneById(results.getInt(1)));
 			}
 			ingredient.setWhereUsed(pizzas);
 		} catch (SQLException e) {
