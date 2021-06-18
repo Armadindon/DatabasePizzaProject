@@ -13,7 +13,6 @@ import modele.entity.Ingredient;
 import modele.entity.Livraison;
 import modele.entity.Livreur;
 import modele.entity.Pizza;
-import modele.entity.TaillePizza;
 
 public class PizzaManager implements EntityManager<Pizza> {
 
@@ -35,7 +34,6 @@ public class PizzaManager implements EntityManager<Pizza> {
 			pizza.setIdPizza(rs.getInt(ID_COLUMN));
 			pizza.setNomPizza(rs.getString("nom_pizza"));
 			pizza.setPrixPizza(rs.getDouble("prix_pizza"));
-			pizza.setTaillePizza(TaillePizza.valueOf(rs.getString("taille_pizza")));
 
 			List<Ingredient> ingredients = new ArrayList<>();
 			IngredientManager igm = new IngredientManager(connection);
@@ -124,8 +122,8 @@ public class PizzaManager implements EntityManager<Pizza> {
 		try {
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate("UPDATE " + TABLE_NAME + " SET " + "nom_pizza ='" + entity.getNomPizza()
-					+ "', prix_pizza =" + entity.getPrixPizza() + ", taille_pizza ='" + entity.getTaillePizza().toString()
-					+ "' WHERE " + ID_COLUMN + "=" + entity.getIdPizza() + ";");
+					+ "', prix_pizza =" + entity.getPrixPizza()
+					+ " WHERE " + ID_COLUMN + "=" + entity.getIdPizza() + ";");
 
 			List<Ingredient> ingredients = new ArrayList<>();
 			IngredientManager igm = new IngredientManager(connection);
@@ -188,7 +186,7 @@ public class PizzaManager implements EntityManager<Pizza> {
 		try {
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomPizza() + "', '"
-					+ entity.getPrixPizza() + "', '" + entity.getTaillePizza() + "');");
+					+ entity.getPrixPizza() + "');");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
