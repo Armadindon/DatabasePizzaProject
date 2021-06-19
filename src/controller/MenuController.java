@@ -48,7 +48,7 @@ import modele.entityManager.PizzaLivraisonManager;
 import modele.entityManager.PizzaManager;
 import modele.entityManager.VehiculeManager;
 
-public class MenuController {
+public class MenuController extends MainController {
 
 	private Connection c;
 
@@ -101,6 +101,8 @@ public class MenuController {
 	private ObservableList<PizzaLivraison> pizzasLivraisons;
 
 	public MenuController() {
+		super("Invoice");
+		
 		c = ApplicationManager.getInstance().getDatabaseConnection();
 
 		selectedPizzas = FXCollections.observableList(new ArrayList<>());
@@ -268,22 +270,5 @@ public class MenuController {
 
 	public Optional<Pizza> getAssociatedPizza(PizzaLivraison pl) {
 		return selectedPizzas.stream().filter((p) -> pl.getPizza().getIdPizza() == p.getIdPizza()).findFirst();
-	}
-	
-    @FXML
-    private void sendData(ActionEvent event) {
-		Node node = (Node) event.getSource();
-		Stage stage = (Stage) node.getScene().getWindow();
-		stage.close();
-		  
-		try {
-		      Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/Invoice.fxml"));
-		        
-		      Scene scene = new Scene(root);
-		      stage.setScene(scene);
-		      stage.show();
-		} catch (IOException e) {
-			System.err.println(String.format("Error: %s", e.getMessage()));
-		}
 	}
 }

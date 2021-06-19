@@ -22,7 +22,7 @@ import modele.entity.Livraison;
 import modele.entity.PizzaLivraison;
 import modele.entity.TaillePizza;
 
-public class InvoiceController {
+public class InvoiceController extends MainController {
 
     @FXML
     private Text t_delivManName;
@@ -77,6 +77,7 @@ public class InvoiceController {
 	private ObservableList<PizzaLivraison> pizzasLivraisons;
     
     public InvoiceController() {
+    	super("Deliveries");
     	l = ApplicationManager.getInstance().getCurrentDelivery();
     	price = ApplicationManager.getInstance().getDeliveryPrice();
     	
@@ -118,23 +119,6 @@ public class InvoiceController {
     void goBack(ActionEvent event) {
     	sendData(event);
     }
-    
-    @FXML
-    private void sendData(ActionEvent event) {
-		Node node = (Node) event.getSource();
-		Stage stage = (Stage) node.getScene().getWindow();
-		stage.close();
-		  
-		try {
-		      Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/Deliveries.fxml"));
-		        
-		      Scene scene = new Scene(root);
-		      stage.setScene(scene);
-		      stage.show();
-		} catch (IOException e) {
-			System.err.println(String.format("Error: %s", e.getMessage()));
-		}
-	}
     
 	public double applyPriceChangeByPizzaWidth(TaillePizza pizza, double basePrice) {
 		switch (pizza) {
