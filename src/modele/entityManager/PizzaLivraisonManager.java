@@ -31,6 +31,7 @@ public class PizzaLivraisonManager implements EntityManager<PizzaLivraison> {
 		try {
 			pizzaLivraison.setLivraison(lm.getOneById(rs.getInt(ID_COLUMN)));
 			pizzaLivraison.setPizza(pm.getOneById(rs.getInt("id_pizza")));
+			pizzaLivraison.setQuantite(rs.getInt("quantite"));
 			pizzaLivraison.setTaille(TaillePizza.valueOf(rs.getString("taille_pizza")));
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -107,9 +108,10 @@ public class PizzaLivraisonManager implements EntityManager<PizzaLivraison> {
 	public void updateOne(PizzaLivraison entity) {
 		try {
 			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("UPDATE " + TABLE_NAME + " SET " + "id_livraison = "
-					+ entity.getLivraison().getIdLivraison() + ", id_pizza = " + entity.getPizza().getIdPizza()
-					+ ", taille_pizza = '" + entity.getTaille().toString() + "' ;");
+			stmt.executeUpdate(
+					"UPDATE " + TABLE_NAME + " SET " + "id_livraison = " + entity.getLivraison().getIdLivraison()
+							+ ", id_pizza = " + entity.getPizza().getIdPizza() + ", quantite = " + entity.getQuantite()
+							+ ", taille_pizza = '" + entity.getTaille().toString() + "' ;");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -120,7 +122,8 @@ public class PizzaLivraisonManager implements EntityManager<PizzaLivraison> {
 		try {
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES (" + entity.getPizza().getIdPizza() + ", "
-					+ entity.getLivraison().getIdLivraison() + ", '" + entity.getTaille().toString() + "');");
+					+ entity.getLivraison().getIdLivraison() + ", " + entity.getQuantite() + ", '"
+					+ entity.getTaille().toString() + "');");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

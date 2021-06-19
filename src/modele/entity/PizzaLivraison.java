@@ -4,14 +4,16 @@ public class PizzaLivraison {
 	private Pizza pizza;
 	private Livraison livraison;
 	private TaillePizza taille;
+	private int quantite;
 	
 	public PizzaLivraison() {
 	}
 	
-	public PizzaLivraison(Pizza pizza, Livraison livraison, TaillePizza taille) {
+	public PizzaLivraison(Pizza pizza, Livraison livraison, TaillePizza taille, int quantite) {
 		this.pizza = pizza;
 		this.livraison = livraison;
 		this.taille = taille;
+		this.quantite = quantite;
 	}
 
 	public Pizza getPizza() {
@@ -38,12 +40,21 @@ public class PizzaLivraison {
 		this.taille = taille;
 	}
 
+	public int getQuantite() {
+		return quantite;
+	}
+
+	public void setQuantite(int quantite) {
+		this.quantite = quantite;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((livraison == null) ? 0 : livraison.hashCode());
 		result = prime * result + ((pizza == null) ? 0 : pizza.hashCode());
+		result = prime * result + quantite;
 		result = prime * result + ((taille == null) ? 0 : taille.hashCode());
 		return result;
 	}
@@ -67,6 +78,8 @@ public class PizzaLivraison {
 				return false;
 		} else if (!pizza.equals(other.pizza))
 			return false;
+		if (quantite != other.quantite)
+			return false;
 		if (taille != other.taille)
 			return false;
 		return true;
@@ -74,7 +87,8 @@ public class PizzaLivraison {
 
 	@Override
 	public String toString() {
-		return "PizzaLivraison [pizza=" + pizza + ", livraison=" + livraison + ", taille=" + taille + "]";
+		return "PizzaLivraison [pizza=" + pizza + ", livraison=" + livraison + ", taille=" + taille + ", quantite="
+				+ quantite + "]";
 	}
 
 }
