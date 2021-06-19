@@ -1,13 +1,18 @@
 package controller;
 
 import java.sql.Connection;
+import java.util.List;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import modele.entity.Pizza;
+import modele.entityManager.PizzaManager;
 
 public class MenuController {
 	
@@ -29,13 +34,13 @@ public class MenuController {
     private Text t_totalPrice;
 
     @FXML
-    private TableView<?> tv_pizzaCatalogue;
+    private TableView<Pizza> tv_pizzaCatalogue;
 
     @FXML
-    private TableColumn<?, ?> tvColumn_pizzaList_name;
+    private TableColumn<Pizza, String> tvColumn_pizzaList_name;
 
     @FXML
-    private TableColumn<?, ?> tvColumn_pizzaList_price;
+    private TableColumn<Pizza, String> tvColumn_pizzaList_price;
 
     @FXML
     private TableView<?> tv_pizzaCommand;
@@ -61,5 +66,16 @@ public class MenuController {
     public MenuController() {
 		c = ApplicationManager.getInstance().getDatabaseConnection();
 	}
+    
+    public void initialize() {
+		PizzaManager pm = new PizzaManager(c);
+		List<Pizza> pizzas = pm.getAll();
+		
+		
+		tv_pizzaCatalogue.setItems(FXCollections.observableList(pizzas));
+		tvColumn_pizzaList_name.setCellValueFactory(new PropertyValueFactory<>("nomPizza"));
+		tvColumn_pizzaList_price.setCellValueFactory(new PropertyValueFactory<>("prixPizza"));
+    }
+
 
 }
