@@ -1,6 +1,7 @@
 package modele.entityManager;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -122,8 +123,13 @@ public class IngredientManager implements EntityManager<Ingredient> {
 	@Override
 	public void addOne(Ingredient entity) {
 		try {
-			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomIngredient() + "');");
+			String SQL_Insert = "INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomIngredient() + "');";
+			PreparedStatement stmt = connection.prepareStatement(SQL_Insert, Statement.RETURN_GENERATED_KEYS);
+			stmt.executeUpdate();
+			ResultSet generatedKeys = stmt.getGeneratedKeys();
+			if(generatedKeys.next()) {
+				entity.setIdIngredient(generatedKeys.getInt(1));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

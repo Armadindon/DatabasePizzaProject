@@ -1,6 +1,7 @@
 package modele.entityManager;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -106,9 +107,14 @@ public class LivreurManager implements EntityManager<Livreur> {
 	@Override
 	public void addOne(Livreur entity) {
 		try {
-			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomLivreur() + "', '"
-					+ entity.getPrenomLivreur() + "', " + entity.getAdresse().getIdAdresse() + ");");
+			String SQL_Insert = "INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomLivreur() + "', '"
+					+ entity.getPrenomLivreur() + "', " + entity.getAdresse().getIdAdresse() + ");";
+			PreparedStatement stmt = connection.prepareStatement(SQL_Insert, Statement.RETURN_GENERATED_KEYS);
+			stmt.executeUpdate();
+			ResultSet generatedKeys = stmt.getGeneratedKeys();
+			if(generatedKeys.next()) {
+				entity.setIdLivreur(generatedKeys.getInt(1));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

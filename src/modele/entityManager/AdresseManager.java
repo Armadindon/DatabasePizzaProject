@@ -1,6 +1,7 @@
 package modele.entityManager;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -107,9 +108,14 @@ public class AdresseManager implements EntityManager<Adresse> {
 	@Override
 	public void addOne(Adresse entity) {
 		try {
-			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getVille() + "', '"
-					+ entity.getCodePostal() + "', '" + entity.getRue() + "', '" + entity.getNumero() + "');");
+			String SQL_Insert = "INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getVille() + "', '"
+					+ entity.getCodePostal() + "', '" + entity.getRue() + "', '" + entity.getNumero() + "');";
+			PreparedStatement stmt = connection.prepareStatement(SQL_Insert, Statement.RETURN_GENERATED_KEYS);
+			stmt.executeUpdate();
+			ResultSet generatedKeys = stmt.getGeneratedKeys();
+			if(generatedKeys.next()) {
+				entity.setIdAdresse(generatedKeys.getInt(1));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

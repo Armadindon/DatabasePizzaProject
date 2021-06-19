@@ -1,6 +1,7 @@
 package modele.entityManager;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -108,9 +109,14 @@ public class ClientManager implements EntityManager<Client> {
 	@Override
 	public void addOne(Client entity) {
 		try {
-			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomClient() + "', '"
-					+ entity.getPrenomClient() + "', " + entity.getSoldeClient() + ", " + entity.getAdresse().getIdAdresse() + ");");
+			String SQL_Insert = "INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomClient() + "', '"
+					+ entity.getPrenomClient() + "', " + entity.getSoldeClient() + ", " + entity.getAdresse().getIdAdresse() + ");";
+			PreparedStatement stmt = connection.prepareStatement(SQL_Insert, Statement.RETURN_GENERATED_KEYS);
+			stmt.executeUpdate();
+			ResultSet generatedKeys = stmt.getGeneratedKeys();
+			if(generatedKeys.next()) {
+				entity.setIdClient(generatedKeys.getInt(1));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

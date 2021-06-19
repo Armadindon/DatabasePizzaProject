@@ -1,6 +1,7 @@
 package modele.entityManager;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -108,9 +109,14 @@ public class VehiculeManager implements EntityManager<Vehicule> {
 	@Override
 	public void addOne(Vehicule entity) {
 		try {
-			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getImmatriculationVehicule() + "', '"
-					+ entity.getType() + "');");
+			String SQL_Insert = "INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getImmatriculationVehicule() + "', '"
+					+ entity.getType() + "');";
+			PreparedStatement stmt = connection.prepareStatement(SQL_Insert, Statement.RETURN_GENERATED_KEYS);
+			stmt.executeUpdate();
+			ResultSet generatedKeys = stmt.getGeneratedKeys();
+			if(generatedKeys.next()) {
+				entity.setIdVehicule(generatedKeys.getInt(1));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
