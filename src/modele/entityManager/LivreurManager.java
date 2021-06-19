@@ -112,7 +112,6 @@ public class LivreurManager implements EntityManager<Livreur> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 }

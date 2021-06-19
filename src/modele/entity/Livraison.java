@@ -13,10 +13,9 @@ public class Livraison {
 	private Livreur livreur;
 	private Vehicule vehicule;
 	private Adresse adresse;
-	private List<Pizza> pizzas;
 
 	public Livraison(int idLivraison, Date dateCommande, Date dateLivraison, Client client, Livreur livreur,
-			Vehicule vehicule, Adresse adresse, List<Pizza> pizzas) {
+			Vehicule vehicule, Adresse adresse) {
 		super();
 		this.idLivraison = idLivraison;
 		this.dateCommande = dateCommande;
@@ -25,7 +24,6 @@ public class Livraison {
 		this.livreur = livreur;
 		this.vehicule = vehicule;
 		this.adresse = adresse;
-		this.pizzas = pizzas;
 	}
 
 	public Livraison() {
@@ -88,17 +86,9 @@ public class Livraison {
 		this.adresse = adresse;
 	}
 
-	public List<Pizza> getPizzas() {
-		return pizzas;
-	}
-
-	public void setPizzas(List<Pizza> pizzas) {
-		this.pizzas = pizzas;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(adresse, client, dateCommande, dateLivraison, idLivraison, livreur, pizzas, vehicule);
+		return Objects.hash(adresse, client, dateCommande, dateLivraison, idLivraison, livreur, vehicule);
 	}
 
 	@Override
@@ -111,16 +101,14 @@ public class Livraison {
 		return Objects.equals(adresse, other.adresse) && Objects.equals(client, other.client)
 				&& Objects.equals(dateCommande, other.dateCommande)
 				&& Objects.equals(dateLivraison, other.dateLivraison) && idLivraison == other.idLivraison
-				&& Objects.equals(livreur, other.livreur) && Objects.equals(pizzas, other.pizzas)
-				&& Objects.equals(vehicule, other.vehicule);
+				&& Objects.equals(livreur, other.livreur) && Objects.equals(vehicule, other.vehicule);
 	}
 
 	@Override
 	public String toString() {
 		return "Livraison [idLivraison=" + idLivraison + ", dateCommande=" + dateCommande + ", dateLivraison="
 				+ dateLivraison + ", client=" + client + ", livreur=" + livreur + ", vehicule=" + vehicule
-				+ ", adresse=" + adresse + ", pizzas=" + pizzas + "]";
+				+ ", adresse=" + adresse + "]";
 	}
 
-	
 }

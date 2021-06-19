@@ -44,17 +44,6 @@ public class LivraisonManager implements EntityManager<Livraison> {
 
 			AdresseManager am = new AdresseManager(connection);
 			livraison.setAdresse(am.getOneById(rs.getInt("id_adresse")));
-
-			List<Pizza> pizzas = new ArrayList<>();
-			PizzaManager pm = new PizzaManager(connection);
-			Statement stmt = connection.createStatement();
-			ResultSet results = stmt.executeQuery(
-					"SELECT id_pizza FROM Comporter WHERE " + ID_COLUMN + " = " + livraison.getIdLivraison() + ";");
-
-			while (results.next()) {
-				pizzas.add(pm.getOneById(results.getInt(1)));
-			}
-			livraison.setPizzas(pizzas);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -127,33 +116,6 @@ public class LivraisonManager implements EntityManager<Livraison> {
 					+ "', id_adresse = " + entity.getAdresse().getIdAdresse() + "WHERE " + ID_COLUMN + "="
 					+ entity.getIdLivraison() + ";");
 
-			List<Pizza> pizzas = new ArrayList<>();
-			PizzaManager pm = new PizzaManager(connection);
-			ResultSet results = stmt.executeQuery(
-					"SELECT id_livraison FROM Comporter WHERE " + ID_COLUMN + " = " + entity.getIdLivraison() + ";");
-
-			while (results.next()) {
-				pizzas.add(pm.getOneById(results.getInt(0)));
-			}
-
-			// On supprime tous les éléments qui ne sont pas dans entity mais qui sont en
-			// bdd
-			List<Pizza> toDelete = entity.getPizzas().stream().filter((Pizza pizza) -> !pizzas.contains(pizza))
-					.collect(Collectors.toList());
-
-			for (Pizza pizza : toDelete) {
-				stmt.executeUpdate("DELETE FROM Comporter WHERE " + ID_COLUMN + " = " + entity.getIdLivraison()
-						+ " AND id_pizza = " + pizza.getIdPizza() + ";");
-			}
-
-			// On supprime tous les éléments qui sont dans entity mais qui sont pas en bdd
-			List<Pizza> toAdd = entity.getPizzas().stream().filter((Pizza pizza) -> pizzas.contains(pizza))
-					.collect(Collectors.toList());
-
-			for (Pizza pizza : toAdd) {
-				stmt.executeUpdate(
-						"INSERT INTO Comporter VALUES (" + pizza.getIdPizza() + ", " + entity.getIdLivraison() + ");");
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
