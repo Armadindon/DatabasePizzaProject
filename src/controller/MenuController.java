@@ -108,14 +108,21 @@ public class MenuController {
 		PizzaLivraison pl = new PizzaLivraison();
 		pl.setPizza(p);
 		pl.setTaille(taille);
+		pl.setQuantite(1);
 
-		if (!pizzasLivraisons.contains(pl)) { // On vérifie que cette taille n'est pas déjà présente
+		//On vérifie la présence d'un objet similaire
+		Optional<PizzaLivraison> pizzaLivraison = pizzasLivraisons
+				.stream()
+				.filter((pll) -> pll.getPizza().getIdPizza() == pl.getPizza().getIdPizza() && pll.getTaille() == pll.getTaille()).findFirst();
+		
+		if (pizzaLivraison.isEmpty()) { // On vérifie que cette taille n'est pas déjà présente
 			pizzasLivraisons.add(pl);
 			selectedPizzas.add(p);
-			t_totalPrice.setText(computeTotalPrice() + " €");
 		} else {
-			// TODO: Gestion du nombre de pizzas
+			pizzaLivraison.get().setQuantite(pizzaLivraison.get().getQuantite() + 1);
+			tv_pizzaCommand.refresh();
 		}
+		t_totalPrice.setText(computeTotalPrice() + " €");
 	}
 
 	@FXML
@@ -151,12 +158,13 @@ public class MenuController {
 
 		tvColumn_pizzaCommand_name.setCellValueFactory(
 				(cellData) -> new SimpleStringProperty(cellData.getValue().getPizza().getNomPizza()));
-		tvColumn_pizzaCommand_price.setCellValueFactory(
-				(cellData) -> new SimpleStringProperty(applyPriceChangeByPizzaWidth(cellData.getValue().getTaille(),
-						cellData.getValue().getPizza().getPrixPizza()) + ""));
-		// TODO: Gérer le nombre de pizzas une fois que la modif en bdd sera effectuée
-		tvColumn_pizzaCommand_number.setCellValueFactory((cellData) -> new SimpleStringProperty(1 + ""));
-		tvColumn_pizzaCommand_length.setCellValueFactory((cellData) -> new SimpleStringProperty(cellData.getValue().getTaille() + ""));
+		tvColumn_pizzaCommand_price.setCellValueFactory((cellData) -> new SimpleStringProperty(
+				(cellData.getValue().getQuantite() * applyPriceChangeByPizzaWidth(cellData.getValue().getTaille(),
+						cellData.getValue().getPizza().getPrixPizza())) + ""));
+
+		tvColumn_pizzaCommand_number.setCellValueFactory((cellData) -> new SimpleStringProperty(cellData.getValue().getQuantite() + ""));
+		tvColumn_pizzaCommand_length
+				.setCellValueFactory((cellData) -> new SimpleStringProperty(cellData.getValue().getTaille() + ""));
 
 		// On met la liste des pizzas séléctionnées en place
 		tv_pizzaCommand.setItems(pizzasLivraisons);
@@ -176,10 +184,8 @@ public class MenuController {
 
 	public double computeTotalPrice() {
 		double sum = 0;
-		for (Pizza p : selectedPizzas) {
-			Optional<PizzaLivraison> pl = getAssociatedPizzaLivraison(p);
-			if (pl.isPresent())
-				sum += applyPriceChangeByPizzaWidth(getAssociatedPizzaLivraison(p).get().getTaille(), p.getPrixPizza());
+		for (PizzaLivraison pl : pizzasLivraisons) {
+			sum += pl.getQuantite() * applyPriceChangeByPizzaWidth(pl.getTaille(), pl.getPizza().getPrixPizza());
 		}
 		return sum;
 	}
@@ -191,5 +197,4 @@ public class MenuController {
 	public Optional<Pizza> getAssociatedPizza(PizzaLivraison pl) {
 		return selectedPizzas.stream().filter((p) -> pl.getPizza().getIdPizza() == p.getIdPizza()).findFirst();
 	}
-
 }
