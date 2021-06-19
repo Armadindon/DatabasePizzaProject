@@ -3,6 +3,7 @@ package controller;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -112,7 +113,7 @@ public class MenuController {
     @FXML
     void persistLivraison(ActionEvent event) {
     	Livraison l = new Livraison();
-    	l.setDateCommande(new Date(System.currentTimeMillis()/1000));
+    	l.setDateCommande(new Date(Calendar.getInstance().getTime().getTime()));
     	
     	List<Client> clients = new ClientManager(c).getAll();
     	ChoiceDialog<Client> choiceClient = new ChoiceDialog<Client>(clients.get(0), clients.subList(1, clients.size()));
