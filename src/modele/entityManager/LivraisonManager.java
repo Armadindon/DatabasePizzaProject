@@ -125,15 +125,17 @@ public class LivraisonManager implements EntityManager<Livraison> {
 	@Override
 	public void addOne(Livraison entity) {
 		try {
-			String SQL_Insert = "INSERT INTO " + TABLE_NAME + " VALUES (" + entity.getDateCommande().toString() + ", "
-					+ entity.getDateLivraison().toString() + ", " + entity.getClient().getIdClient() + ", "
+			String SQL_Insert = "INSERT INTO " + TABLE_NAME
+					+ "(dateCommande_livraison,id_client,id_livreur,id_vehicule,id_adresse) VALUES ('"
+					+ entity.getDateCommande() + "', " + entity.getClient().getIdClient() + ", "
 					+ entity.getLivreur().getIdLivreur() + ", " + entity.getVehicule().getIdVehicule() + ", "
 					+ entity.getAdresse().getIdAdresse() + ");";
-			
+
+			System.out.println(SQL_Insert);
 			PreparedStatement stmt = connection.prepareStatement(SQL_Insert, Statement.RETURN_GENERATED_KEYS);
 			stmt.executeUpdate();
 			ResultSet generatedKeys = stmt.getGeneratedKeys();
-			if(generatedKeys.next()) {
+			if (generatedKeys.next()) {
 				entity.setIdLivraison(generatedKeys.getInt(1));
 			}
 		} catch (SQLException e) {

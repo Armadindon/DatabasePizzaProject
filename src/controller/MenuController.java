@@ -1,9 +1,11 @@
 package controller;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -22,11 +24,22 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import modele.entity.Adresse;
+import modele.entity.Client;
 import modele.entity.Ingredient;
+import modele.entity.Livraison;
+import modele.entity.Livreur;
 import modele.entity.Pizza;
 import modele.entity.PizzaLivraison;
 import modele.entity.TaillePizza;
+import modele.entity.Vehicule;
+import modele.entityManager.AdresseManager;
+import modele.entityManager.ClientManager;
+import modele.entityManager.LivraisonManager;
+import modele.entityManager.LivreurManager;
+import modele.entityManager.PizzaLivraisonManager;
 import modele.entityManager.PizzaManager;
+import modele.entityManager.VehiculeManager;
 
 public class MenuController {
 
@@ -94,6 +107,54 @@ public class MenuController {
 
 		tv_pizzaIngredients.setItems(FXCollections.observableList(p.getIngredients()));
 	}
+	
+
+    @FXML
+    void persistLivraison(ActionEvent event) {
+    	Livraison l = new Livraison();
+    	l.setDateCommande(new Date(System.currentTimeMillis()/1000));
+    	
+    	List<Client> clients = new ClientManager(c).getAll();
+    	ChoiceDialog<Client> choiceClient = new ChoiceDialog<Client>(clients.get(0), clients.subList(1, clients.size()));
+    	choiceClient.setHeaderText("Veuillez choisir un client");
+    	choiceClient.setTitle("Choix du client");
+		Client client = choiceClient.showAndWait().get();
+		
+		List<Livreur> livreurs = new LivreurManager(c).getAll();
+    	ChoiceDialog<Livreur> choiceLivreur = new ChoiceDialog<Livreur>(livreurs.get(0), livreurs.subList(1, livreurs.size()));
+    	choiceLivreur.setHeaderText("Veuillez choisir un livreur");
+    	choiceLivreur.setTitle("Choix du livreur");
+    	Livreur livreur = choiceLivreur.showAndWait().get();
+    	
+    	List<Adresse> adresses = new AdresseManager(c).getAll();
+    	ChoiceDialog<Adresse> choiceAdresse = new ChoiceDialog<Adresse>(adresses.get(0), adresses.subList(1, adresses.size()));
+    	choiceAdresse.setHeaderText("Veuillez choisir une adresse");
+    	choiceAdresse.setTitle("Choix de l'adresse");
+		Adresse adresse = choiceAdresse.showAndWait().get();
+		
+		List<Vehicule> vehicules = new VehiculeManager(c).getAll();
+    	ChoiceDialog<Vehicule> choiceVehicule = new ChoiceDialog<Vehicule>(vehicules.get(0), vehicules.subList(1, vehicules.size()));
+    	choiceVehicule.setHeaderText("Veuillez choisir un livreur");
+    	choiceVehicule.setTitle("Choix du livreur");
+    	Vehicule vehicule = choiceVehicule.showAndWait().get();
+		
+    	
+    	l.setAdresse(adresse);
+    	l.setClient(client);
+    	l.setLivreur(livreur);
+    	l.setVehicule(vehicule);
+    	
+    	LivraisonManager lm = new LivraisonManager(c);
+    	lm.addOne(l);
+    	System.out.println(l);
+    	
+    	PizzaLivraisonManager plm = new PizzaLivraisonManager(c);
+    	
+    	for(PizzaLivraison pl : pizzasLivraisons) {
+    		pl.setLivraison(l);
+    		plm.addOne(pl);
+    	}
+    }
 
 	@FXML
 	void addPizza(ActionEvent event) {

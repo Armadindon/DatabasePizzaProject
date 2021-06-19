@@ -15,7 +15,7 @@
             <Font size="30.0" />
          </font>
       </Text>
-      <Button fx:id="bt_validateCommand" layoutX="344.0" layoutY="578.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="150.0" style="-fx-background-color: #0d6efd;" text="Valider commande" textFill="WHITE" />
+      <Button fx:id="bt_validateCommand" layoutX="344.0" layoutY="578.0" mnemonicParsing="false" onAction="#persistLivraison" prefHeight="58.0" prefWidth="150.0" style="-fx-background-color: #0d6efd;" text="Valider commande" textFill="WHITE" />
       <Button fx:id="bt_addPizza" layoutX="234.0" layoutY="496.0" mnemonicParsing="false" onAction="#addPizza" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #198754;" text="+" textFill="WHITE" />
       <Button fx:id="bt_removePizza" layoutX="272.0" layoutY="496.0" mnemonicParsing="false" onAction="#removePizza" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #dc3545;" text="-" textAlignment="CENTER" textFill="WHITE" />
       <Text fx:id="t_totalPrice" layoutX="444.0" layoutY="518.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total">
