@@ -14,14 +14,22 @@
             <Font size="30.0" />
          </font>
       </Text>
-      <TableView fx:id="tv_pizzaTab" layoutX="59.0" layoutY="91.0" prefHeight="451.0" prefWidth="436.0">
+      <TableView fx:id="tv_Deliveries" layoutX="59.0" layoutY="91.0" onMouseClicked="#getSpecificLivraison" prefHeight="334.0" prefWidth="436.0">
         <columns>
           <TableColumn fx:id="tvColumn_livraison" prefWidth="71.0" text="Livraison" />
             <TableColumn fx:id="tvColumn_dateCommande" prefWidth="184.0" text="Date commande" />
           <TableColumn fx:id="tvColumn_dateLivraison" prefWidth="180.0" text="Date livraison" />
         </columns>
       </TableView>
-      <Button fx:id="bt_addPizza" layoutX="229.0" layoutY="560.0" mnemonicParsing="false" onAction="#addDelivery" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #198754;" text="+" textFill="WHITE" />
-      <Button fx:id="bt_removePizza" layoutX="298.0" layoutY="560.0" mnemonicParsing="false" onAction="#removeDelivery" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #dc3545;" text="-" textAlignment="CENTER" textFill="WHITE" />
+      <Button fx:id="bt_addLivraison" layoutX="426.0" layoutY="440.0" mnemonicParsing="false" onAction="#addDelivery" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #198754;" text="+" textFill="WHITE" />
+      <Button fx:id="bt_removeLivraison" layoutX="467.0" layoutY="440.0" mnemonicParsing="false" onAction="#removeDelivery" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #dc3545;" text="-" textAlignment="CENTER" textFill="WHITE" />
+   	<TableView fx:id="tv_pizzaCommand" layoutX="59.0" layoutY="440.0" prefHeight="215.0" prefWidth="291.0">
+        <columns>
+            <TableColumn fx:id="tvColumn_pizza_number" prefWidth="62.0" text="Nombre" />
+          <TableColumn fx:id="tvColumn_pizza_name" prefWidth="102.0" text="Pizza" />
+            <TableColumn fx:id="tvColumn_pizza_length" prefWidth="68.0" text="Taille" />
+          <TableColumn fx:id="tvColumn_pizza_price" minWidth="9.0" prefWidth="59.0" text="Prix" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

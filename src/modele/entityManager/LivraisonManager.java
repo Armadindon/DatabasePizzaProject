@@ -99,6 +99,7 @@ public class LivraisonManager implements EntityManager<Livraison> {
 	public void deleteOneById(int id) {
 		try {
 			Statement stmt = connection.createStatement();
+			stmt.executeUpdate("DELETE FROM Comporter WHERE " + ID_COLUMN + "=" + id + ";");
 			stmt.executeUpdate("DELETE FROM " + TABLE_NAME + " WHERE " + ID_COLUMN + "=" + id + ";");
 		} catch (SQLException e) {
 			e.printStackTrace();
