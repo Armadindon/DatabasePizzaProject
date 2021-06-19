@@ -39,10 +39,6 @@ public class IngredientManager implements EntityManager<Ingredient> {
 			ResultSet results = stmt.executeQuery(
 					"SELECT id_pizza FROM Garnir WHERE " + ID_COLUMN + " = " + ingredient.getIdIngredient() + ";");
 
-			while (results.next()) {
-				pizzas.add(pm.getOneById(results.getInt(1)));
-			}
-			ingredient.setWhereUsed(pizzas);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -118,26 +114,6 @@ public class IngredientManager implements EntityManager<Ingredient> {
 			ResultSet results = stmt.executeQuery(
 					"SELECT id_pizza FROM Garnir WHERE " + ID_COLUMN + " = " + entity.getIdIngredient() + ";");
 
-			while (results.next()) {
-				pizzas.add(pm.getOneById(results.getInt(0)));
-			}
-
-			// On supprime tous les éléments qui ne sont pas dans entity mais qui sont en
-			// bdd
-			List<Pizza> toDelete = entity.getWhereUsed().stream()
-					.filter((Pizza pizza) -> !pizzas.contains(pizza)).collect(Collectors.toList());
-			
-			for(Pizza pizza : toDelete) {
-				stmt.executeUpdate("DELETE FROM Garnir WHERE "+ID_COLUMN+" = "+entity.getIdIngredient()+" AND id_pizza = " + pizza.getIdPizza()+";");
-			}
-			
-			// On supprime tous les éléments qui sont dans entity mais qui sont pas en bdd
-			List<Pizza> toAdd = entity.getWhereUsed().stream()
-					.filter((Pizza pizza) -> pizzas.contains(pizza)).collect(Collectors.toList());
-			
-			for(Pizza pizza : toAdd) {
-				stmt.executeUpdate("INSERT INTO Garnir VALUES ("+pizza.getIdPizza()+", " + entity.getIdIngredient()+");");
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -9,16 +9,13 @@ public class Pizza {
 	private String nomPizza;
 	private double prixPizza;
 	private List<Ingredient> ingredients;
-	private List<Livraison> commandes;
 
-	public Pizza(int idPizza, String nomPizza, double prixPizza, TaillePizza taillePizza, List<Ingredient> ingredients,
-			List<Livraison> commandes) {
+	public Pizza(int idPizza, String nomPizza, double prixPizza, List<Ingredient> ingredients) {
 		super();
 		this.idPizza = idPizza;
 		this.nomPizza = nomPizza;
 		this.prixPizza = prixPizza;
 		this.ingredients = ingredients;
-		this.commandes = commandes;
 	}
 
 	public Pizza() {
@@ -57,17 +54,9 @@ public class Pizza {
 		this.ingredients = ingredients;
 	}
 
-	public List<Livraison> getCommandes() {
-		return commandes;
-	}
-
-	public void setCommandes(List<Livraison> commandes) {
-		this.commandes = commandes;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(commandes, idPizza, ingredients, nomPizza, prixPizza);
+		return Objects.hash(idPizza, ingredients, nomPizza, prixPizza);
 	}
 
 	@Override
@@ -77,7 +66,7 @@ public class Pizza {
 		if (!(obj instanceof Pizza))
 			return false;
 		Pizza other = (Pizza) obj;
-		return Objects.equals(commandes, other.commandes) && idPizza == other.idPizza
+		return  idPizza == other.idPizza
 				&& Objects.equals(ingredients, other.ingredients) && Objects.equals(nomPizza, other.nomPizza)
 				&& Double.doubleToLongBits(prixPizza) == Double.doubleToLongBits(other.prixPizza);
 	}
@@ -85,7 +74,7 @@ public class Pizza {
 	@Override
 	public String toString() {
 		return "Pizza [idPizza=" + idPizza + ", nomPizza=" + nomPizza + ", prixPizza=" + prixPizza + ", ingredients="
-				+ ingredients + ", commandes=" + commandes + "]";
+				+ ingredients + "]";
 	}
 
 }
