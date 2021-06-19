@@ -108,12 +108,13 @@ public class AdresseManager implements EntityManager<Adresse> {
 	@Override
 	public void addOne(Adresse entity) {
 		try {
-			String SQL_Insert = "INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getVille() + "', '"
-					+ entity.getCodePostal() + "', '" + entity.getRue() + "', '" + entity.getNumero() + "');";
+			String SQL_Insert = "INSERT INTO " + TABLE_NAME
+					+ "(ville_adresse,codePostal_adresse,rue_adresse,numero_adresse) VALUES ('" + entity.getVille()
+					+ "', '" + entity.getCodePostal() + "', '" + entity.getRue() + "', '" + entity.getNumero() + "');";
 			PreparedStatement stmt = connection.prepareStatement(SQL_Insert, Statement.RETURN_GENERATED_KEYS);
 			stmt.executeUpdate();
 			ResultSet generatedKeys = stmt.getGeneratedKeys();
-			if(generatedKeys.next()) {
+			if (generatedKeys.next()) {
 				entity.setIdAdresse(generatedKeys.getInt(1));
 			}
 		} catch (SQLException e) {

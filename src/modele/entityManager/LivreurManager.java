@@ -107,7 +107,7 @@ public class LivreurManager implements EntityManager<Livreur> {
 	@Override
 	public void addOne(Livreur entity) {
 		try {
-			String SQL_Insert = "INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomLivreur() + "', '"
+			String SQL_Insert = "INSERT INTO " + TABLE_NAME + "(nom_livreur, prenom_livreur, id_adresse) VALUES ('" + entity.getNomLivreur() + "', '"
 					+ entity.getPrenomLivreur() + "', " + entity.getAdresse().getIdAdresse() + ");";
 			PreparedStatement stmt = connection.prepareStatement(SQL_Insert, Statement.RETURN_GENERATED_KEYS);
 			stmt.executeUpdate();

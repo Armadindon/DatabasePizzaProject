@@ -149,7 +149,7 @@ public class PizzaManager implements EntityManager<Pizza> {
 	@Override
 	public void addOne(Pizza entity) {
 		try {
-			String SQL_Insert = "INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomPizza() + "', '"
+			String SQL_Insert = "INSERT INTO " + TABLE_NAME + "(nom_pizza, prix_pizza) VALUES ('" + entity.getNomPizza() + "', '"
 					+ entity.getPrixPizza() + "');";
 			PreparedStatement stmt = connection.prepareStatement(SQL_Insert, Statement.RETURN_GENERATED_KEYS);
 			stmt.executeUpdate();

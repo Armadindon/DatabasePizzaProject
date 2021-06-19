@@ -1,20 +1,10 @@
 USE RaPizzDB;
-INSERT INTO Adresse (
-        ville_adresse,
-        codePostal_adresse,
-        rue_adresse,
-        numero_adresse
-    )
+INSERT INTO Adresse (ville_adresse,codePostal_adresse,rue_adresse,numero_adresse)
 VALUES ('HYERES', '83400', 'GAMBETTA', '10bis'),
     ('CHAMPS-SUR-MARNES', '77420', 'NAPOLEON', '13'),
     ('MAZAMET', '81200', 'RUE DU PORT', '69'),
     ('HYERES', '83400', 'RUE DE LA CHAPELLE', '42');
-INSERT INTO Client (
-        nom_client,
-        prenom_client,
-        solde_client,
-        id_adresse
-    )
+INSERT INTO Client (nom_client,prenom_client,solde_client,id_adresse)
 VALUES ('MARINO', 'ENZO', 639, 1),
     ('GRECO', 'NINO', 100, 2),
     ('CONTI', 'MILO', 25, 3),

@@ -109,7 +109,7 @@ public class VehiculeManager implements EntityManager<Vehicule> {
 	@Override
 	public void addOne(Vehicule entity) {
 		try {
-			String SQL_Insert = "INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getImmatriculationVehicule() + "', '"
+			String SQL_Insert = "INSERT INTO " + TABLE_NAME + "(immatricule_vehicule, type_vehicule) VALUES ('" + entity.getImmatriculationVehicule() + "', '"
 					+ entity.getType() + "');";
 			PreparedStatement stmt = connection.prepareStatement(SQL_Insert, Statement.RETURN_GENERATED_KEYS);
 			stmt.executeUpdate();

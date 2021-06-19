@@ -123,7 +123,7 @@ public class IngredientManager implements EntityManager<Ingredient> {
 	@Override
 	public void addOne(Ingredient entity) {
 		try {
-			String SQL_Insert = "INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomIngredient() + "');";
+			String SQL_Insert = "INSERT INTO " + TABLE_NAME + "(nom_ingredient) VALUES ('" + entity.getNomIngredient() + "');";
 			PreparedStatement stmt = connection.prepareStatement(SQL_Insert, Statement.RETURN_GENERATED_KEYS);
 			stmt.executeUpdate();
 			ResultSet generatedKeys = stmt.getGeneratedKeys();

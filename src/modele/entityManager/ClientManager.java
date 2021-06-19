@@ -109,7 +109,7 @@ public class ClientManager implements EntityManager<Client> {
 	@Override
 	public void addOne(Client entity) {
 		try {
-			String SQL_Insert = "INSERT INTO " + TABLE_NAME + " VALUES ('" + entity.getNomClient() + "', '"
+			String SQL_Insert = "INSERT INTO " + TABLE_NAME + "(nom_client,prenom_client,solde_client,id_adresse) VALUES ('" + entity.getNomClient() + "', '"
 					+ entity.getPrenomClient() + "', " + entity.getSoldeClient() + ", " + entity.getAdresse().getIdAdresse() + ");";
 			PreparedStatement stmt = connection.prepareStatement(SQL_Insert, Statement.RETURN_GENERATED_KEYS);
 			stmt.executeUpdate();
