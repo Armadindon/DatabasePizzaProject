@@ -49,24 +49,23 @@ public class ConnectController {
     
     @FXML
     private void sendData(ActionEvent event) {
-	      Node node = (Node) event.getSource();
-	      Stage stage = (Stage) node.getScene().getWindow();
-	      stage.close();
-	      
-	      //On Set la connection sur le singleton
-	      ApplicationManager.getInstance().setDatabaseConnection(connection);
-	      
-	      
-	      try {
-		        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/Menu.fxml"));
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		stage.close();
+		  
+		//On Set la connection sur le singleton
+		ApplicationManager.getInstance().setDatabaseConnection(connection);
+		  
+		try {
+		      Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/Menu.fxml"));
 		        
-		        Scene scene = new Scene(root);
-		        stage.setScene(scene);
-		        stage.show();
-	      } catch (IOException e) {
-	    	  System.err.println(String.format("Error: %s", e.getMessage()));
-	      }
-    }
+		      Scene scene = new Scene(root);
+		      stage.setScene(scene);
+		      stage.show();
+		} catch (IOException e) {
+			System.err.println(String.format("Error: %s", e.getMessage()));
+		}
+	}
     
     public void databaseConnection(String driver, String url, String user, String pwd) {
 		try {
