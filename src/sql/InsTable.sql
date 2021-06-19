@@ -145,14 +145,14 @@ VALUES (
     ('2020-07-23 17:00:00', NULL, 4, 1, 3, 4),
     ('2020-07-23 17:00:00', NULL, 1, 2, 1, 1);
 
-INSERT INTO Comporter (id_pizza, id_livraison, taille_pizza)
-VALUES (1, 1, 'NAINE'),
-    (1, 2, 'NAINE'),
-    (2, 3, 'HUMAINE'),
-    (4, 4, 'HUMAINE'),
-    (6, 5, 'OGRESSE'),
-    (1, 6, 'OGRESSE'),
-    (2, 7, 'OGRESSE'),
-    (3, 8, 'NAINE'),
-    (4, 9, 'HUMAINE'),
-    (5, 10, 'HUMAINE');
+INSERT INTO Comporter (id_pizza, id_livraison, taille_pizza,quantite)
+VALUES (1, 1, 'NAINE',1),
+    (1, 2, 'NAINE',2),
+    (2, 3, 'HUMAINE',3),
+    (4, 4, 'HUMAINE',4),
+    (6, 5, 'OGRESSE',5),
+    (1, 6, 'OGRESSE',6),
+    (2, 7, 'OGRESSE',7),
+    (3, 8, 'NAINE',8),
+    (4, 9, 'HUMAINE',9),
+    (5, 10, 'HUMAINE',10);

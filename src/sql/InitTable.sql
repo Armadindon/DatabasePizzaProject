@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS Adresse(
 CREATE TABLE IF NOT EXISTS Vehicule(
    id_vehicule INT AUTO_INCREMENT,
    immatricule_vehicule VARCHAR(9),
-   type_vehicule ENUM ('VOITURE','MOIO'),
+   type_vehicule ENUM ('VOITURE','MOTO'),
    PRIMARY KEY(id_vehicule)
 );
 CREATE TABLE IF NOT EXISTS Client(
@@ -68,8 +68,9 @@ CREATE TABLE IF NOT EXISTS Garnir(
 CREATE TABLE IF NOT EXISTS Comporter(
    id_pizza INT,
    id_livraison INT,
+   quantite INT,
    taille_pizza ENUM ('NAINE','HUMAINE','OGRESSE'),
-   PRIMARY KEY(id_pizza, id_livraison),
+   PRIMARY KEY(id_pizza, id_livraison, taille_pizza),
    FOREIGN KEY(id_pizza) REFERENCES Pizza(id_pizza),
    FOREIGN KEY(id_livraison) REFERENCES Livraison(id_livraison)
 );
