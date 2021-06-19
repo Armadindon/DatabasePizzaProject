@@ -69,6 +69,20 @@ public class Main extends Application {
 		return p;
 	}
 	
+	public Parent loadDeliveries() {
+		Parent p = null;
+		
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/Deliveries.fxml"));
+			p = (Parent) loader.load();
+		} catch(Exception e) {
+			
+		}
+		
+		return p;
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

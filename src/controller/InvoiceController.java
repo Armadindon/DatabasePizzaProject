@@ -1,15 +1,23 @@
 package controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import modele.entity.Livraison;
 import modele.entity.PizzaLivraison;
 import modele.entity.TaillePizza;
@@ -61,6 +69,9 @@ public class InvoiceController {
     @FXML
     private TableColumn<PizzaLivraison, String> tvColumn_price;
     
+    @FXML
+    private Button bt_goback;
+    
     private Livraison l;
     private double price;
 	private ObservableList<PizzaLivraison> pizzasLivraisons;
@@ -102,6 +113,28 @@ public class InvoiceController {
     	
     	tv_pizzaTab.setItems(pizzasLivraisons);
     }
+    
+    @FXML
+    void goBack(ActionEvent event) {
+    	sendData(event);
+    }
+    
+    @FXML
+    private void sendData(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		stage.close();
+		  
+		try {
+		      Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/Deliveries.fxml"));
+		        
+		      Scene scene = new Scene(root);
+		      stage.setScene(scene);
+		      stage.show();
+		} catch (IOException e) {
+			System.err.println(String.format("Error: %s", e.getMessage()));
+		}
+	}
     
 	public double applyPriceChangeByPizzaWidth(TaillePizza pizza, double basePrice) {
 		switch (pizza) {
