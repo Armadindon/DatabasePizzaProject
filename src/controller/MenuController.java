@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -16,6 +17,10 @@ import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.DialogEvent;
@@ -25,6 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import modele.entity.Adresse;
 import modele.entity.Client;
 import modele.entity.Ingredient;
@@ -139,7 +145,6 @@ public class MenuController {
     	choiceVehicule.setTitle("Choix du livreur");
     	Vehicule vehicule = choiceVehicule.showAndWait().get();
 		
-    	
     	l.setAdresse(adresse);
     	l.setClient(client);
     	l.setLivreur(livreur);
@@ -155,6 +160,11 @@ public class MenuController {
     		pl.setLivraison(l);
     		plm.addOne(pl);
     	}
+    	
+    	ApplicationManager.getInstance().setCurrentDelivery(l);
+    	ApplicationManager.getInstance().setDeliveryPrice(computeTotalPrice());
+    	ApplicationManager.getInstance().setDeliveryPizzaList(pizzasLivraisons);
+    	sendData(event);
     }
 
 	@FXML
@@ -184,7 +194,7 @@ public class MenuController {
 			pizzaLivraison.get().setQuantite(pizzaLivraison.get().getQuantite() + 1);
 			tv_pizzaCommand.refresh();
 		}
-		t_totalPrice.setText(computeTotalPrice() + " â‚¬");
+		t_totalPrice.setText(computeTotalPrice() + " €");
 	}
 
 	@FXML
@@ -234,12 +244,12 @@ public class MenuController {
 
 	public double applyPriceChangeByPizzaWidth(TaillePizza pizza, double basePrice) {
 		switch (pizza) {
-		case HUMAINE:
-			return basePrice;
-		case NAINE:
-			return basePrice * 0.75;
-		case OGRESSE:
-			return basePrice * 1.25;
+			case HUMAINE:
+				return basePrice;
+			case NAINE:
+				return basePrice * 0.75;
+			case OGRESSE:
+				return basePrice * 1.25;
 		}
 		return 0;
 	}
@@ -258,5 +268,22 @@ public class MenuController {
 
 	public Optional<Pizza> getAssociatedPizza(PizzaLivraison pl) {
 		return selectedPizzas.stream().filter((p) -> pl.getPizza().getIdPizza() == p.getIdPizza()).findFirst();
+	}
+	
+    @FXML
+    private void sendData(ActionEvent event) {
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		stage.close();
+		  
+		try {
+		      Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/Invoice.fxml"));
+		        
+		      Scene scene = new Scene(root);
+		      stage.setScene(scene);
+		      stage.show();
+		} catch (IOException e) {
+			System.err.println(String.format("Error: %s", e.getMessage()));
+		}
 	}
 }

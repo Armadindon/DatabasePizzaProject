@@ -17,56 +17,56 @@
       <Label layoutX="14.0" layoutY="125.0" text="Nom du livreur" />
       <Text fx:id="t_delivManName" layoutX="14.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
-            <Font size="20.0" />
+            <Font size="17.0" />
          </font>
       </Text>
       <Text fx:id="t_delivManForename" layoutX="14.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
-            <Font size="20.0" />
+            <Font size="17.0" />
          </font>
       </Text>
       <Label layoutX="14.0" layoutY="222.0" text="Véhicule utilisé" />
       <Text fx:id="t_vehiculeType" layoutX="14.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
-            <Font size="20.0" />
+            <Font size="17.0" />
          </font>
       </Text>
       <Text fx:id="t_vehiculeMatri" layoutX="14.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
-            <Font size="20.0" />
+            <Font size="17.0" />
          </font>
       </Text>
-      <Label layoutX="14.0" layoutY="313.0" text="Client" />
-      <Text fx:id="t_clientName" layoutX="14.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Label layoutX="18.0" layoutY="317.0" text="Client" />
+      <Text fx:id="t_clientName" layoutX="18.0" layoutY="362.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
-            <Font size="20.0" />
+            <Font size="17.0" />
          </font>
       </Text>
-      <Text fx:id="t_clientForename" layoutX="14.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Text fx:id="t_clientForename" layoutX="18.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
-            <Font size="20.0" />
+            <Font size="17.0" />
          </font>
       </Text>
-      <Text fx:id="t_clientAddress" layoutX="14.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Text fx:id="t_clientAddress" layoutX="18.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
-            <Font size="20.0" />
+            <Font size="17.0" />
          </font>
       </Text>
-      <Label layoutX="14.0" layoutY="441.0" text="Date commande" />
-      <Text fx:id="t_dateDelivery" layoutX="14.0" layoutY="486.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Label layoutX="13.0" layoutY="469.0" text="Date commande" />
+      <Text fx:id="t_dateDelivery" layoutX="13.0" layoutY="514.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
-            <Font size="20.0" />
+            <Font size="17.0" />
          </font>
       </Text>
-      <Text fx:id="t_dateLate" layoutX="14.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Text fx:id="t_dateLate" layoutX="13.0" layoutY="544.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
-            <Font size="20.0" />
+            <Font size="17.0" />
          </font>
       </Text>
-      <Label layoutX="14.0" layoutY="532.0" text="Prix" />
-      <Text fx:id="t_totalPrice" layoutX="14.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Label layoutX="13.0" layoutY="560.0" text="Prix" />
+      <Text fx:id="t_totalPrice" layoutX="13.0" layoutY="599.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
-            <Font size="20.0" />
+            <Font size="17.0" />
          </font>
       </Text>
       <TableView fx:id="tv_pizzaTab" layoutX="244.0" layoutY="17.0" prefHeight="485.0" prefWidth="296.0">
