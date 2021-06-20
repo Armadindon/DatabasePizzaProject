@@ -77,7 +77,6 @@ public class InvoiceController extends MainController {
 	private ObservableList<PizzaLivraison> pizzasLivraisons;
     
     public InvoiceController() {
-    	super("Deliveries");
     	l = ApplicationManager.getInstance().getCurrentDelivery();
     	price = ApplicationManager.getInstance().getDeliveryPrice();
     	
@@ -117,7 +116,7 @@ public class InvoiceController extends MainController {
     
     @FXML
     void goBack(ActionEvent event) {
-    	sendData(event);
+    	sendData(event, "Deliveries");
     }
     
 	public double applyPriceChangeByPizzaWidth(TaillePizza pizza, double basePrice) {

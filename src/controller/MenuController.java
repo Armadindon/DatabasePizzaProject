@@ -101,8 +101,6 @@ public class MenuController extends MainController {
 	private ObservableList<PizzaLivraison> pizzasLivraisons;
 
 	public MenuController() {
-		super("Invoice");
-		
 		c = ApplicationManager.getInstance().getDatabaseConnection();
 
 		selectedPizzas = FXCollections.observableList(new ArrayList<>());
@@ -166,7 +164,7 @@ public class MenuController extends MainController {
     	ApplicationManager.getInstance().setCurrentDelivery(l);
     	ApplicationManager.getInstance().setDeliveryPrice(computeTotalPrice());
     	ApplicationManager.getInstance().setDeliveryPizzaList(pizzasLivraisons);
-    	sendData(event);
+    	sendData(event, "Invoice");
     }
 
 	@FXML

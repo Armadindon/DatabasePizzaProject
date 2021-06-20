@@ -38,9 +38,7 @@ public class ConnectController extends MainController {
     @FXML
     private Button bt_connect;
     
-	public ConnectController() {
-		super("Deliveries");
-	}
+	public ConnectController() {}
 
     /***
      * Fonction affili�e au bouton de connexion
@@ -50,7 +48,7 @@ public class ConnectController extends MainController {
     void validateConnection(ActionEvent event) {
     	databaseConnection("org.mariadb.jdbc.Driver", tf_bdd.getText(), tf_password.getText(), tf_login.getText());
     	ApplicationManager.getInstance().setDatabaseConnection(connection);
-    	sendData(event);
+    	sendData(event, "Deliveries");
     }
     
     public void databaseConnection(String driver, String url, String user, String pwd) {

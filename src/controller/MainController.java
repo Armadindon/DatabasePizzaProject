@@ -12,14 +12,10 @@ import javafx.stage.Stage;
 
 public abstract class MainController {
 
-	protected String place;
 	
-	public MainController(String place) {
-		this.place = place;
-	}
+	public MainController() {}
 	
-    @FXML
-    protected void sendData(ActionEvent event) {
+    protected void sendData(ActionEvent event, String place) {
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();

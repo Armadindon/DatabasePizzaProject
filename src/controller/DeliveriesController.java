@@ -75,8 +75,6 @@ public class DeliveriesController extends MainController {
 	private PizzaLivraisonManager plm;
 
 	public DeliveriesController() {
-		super("Menu");
-
 		c = ApplicationManager.getInstance().getDatabaseConnection();
 	}
 
@@ -116,7 +114,7 @@ public class DeliveriesController extends MainController {
 
 	@FXML
 	void addDelivery(ActionEvent event) {
-		sendData(event);
+		sendData(event, "Menu");
 	}
 
 	@FXML
