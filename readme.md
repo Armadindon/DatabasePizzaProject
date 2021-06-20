@@ -8,19 +8,19 @@
 
 # Projet de base de données
 
-Ce projet a été réalisé sur le thème d'une pizzeria qui souhaite gérer ses commandes, ses livreurs, et autre via sa base de données.
+Ce projet a été réalisé sur le thème d'une pizzeria "Rapizz" qui souhaite gérer ses commandes, ses livreurs, et autre via sa base de données.
 
 
 
-**A noter:** Tout le code, le fichier looping, y compris les fichiers sql sont retrouvables et consultables en ligne, sur un [repository GitHub](https://github.com/Armadindon/DatabasePizzaProject)
+**A noter:** Tout le code, le fichier looping, y compris les fichiers SQL sont retrouvables et consultables en ligne, sur un [dépôt GitHub](https://github.com/Armadindon/DatabasePizzaProject)
 
 ## Partie 1 - Définition de la base de données
 
-Dans un premier temps, nous avons défini un schéma de base de données afin de répondre à la problèmatique:
+Dans un premier temps, nous avons défini un schéma de base de données afin de répondre à la problématique:
 
 
 
-- Nous avons commencé par réaliser ce MLD
+- Nous avons commencé par réaliser ce MCD
 
 ![MCD](ImagesRapport/mcd.png)
 
@@ -46,9 +46,9 @@ Comporter = (#id_pizza, #id_livraison, quantité INT, taille_pizza ENUM);
 
 
 
-## Partie 2 - Implémentation du schema
+## Partie 2 - Implémentation du schéma
 
-Afin d'implementer cette base de données, nous avons réalisés trois scripts:
+Afin d'implémenter cette base de données, nous avons réalisés trois scripts:
 
 - Un script d'initialisation
 - Un script d'insertion de données
@@ -68,11 +68,13 @@ CREATE TABLE IF NOT EXISTS Pizza(
    prix_pizza DECIMAL(4,2),
    PRIMARY KEY(id_pizza)
 );
+
 CREATE TABLE IF NOT EXISTS Ingredient(
    id_ingredient INT AUTO_INCREMENT,
    nom_ingredient VARCHAR(50),
    PRIMARY KEY(id_ingredient)
 );
+
 CREATE TABLE IF NOT EXISTS Adresse(
    id_adresse INT AUTO_INCREMENT,
    ville_adresse VARCHAR(100),
@@ -81,12 +83,14 @@ CREATE TABLE IF NOT EXISTS Adresse(
    numero_adresse VARCHAR(10),
    PRIMARY KEY(id_adresse)
 );
+
 CREATE TABLE IF NOT EXISTS Vehicule(
    id_vehicule INT AUTO_INCREMENT,
    immatricule_vehicule VARCHAR(9),
    type_vehicule ENUM ('VOITURE','MOTO'),
    PRIMARY KEY(id_vehicule)
 );
+
 CREATE TABLE IF NOT EXISTS Client(
    id_client INT AUTO_INCREMENT,
    nom_client VARCHAR(50),
@@ -96,6 +100,7 @@ CREATE TABLE IF NOT EXISTS Client(
    PRIMARY KEY(id_client),
    FOREIGN KEY(id_adresse) REFERENCES Adresse(id_adresse) ON DELETE CASCADE
 );
+
 CREATE TABLE IF NOT EXISTS Livreur(
    id_livreur INT AUTO_INCREMENT,
    nom_livreur VARCHAR(50) NOT NULL,
@@ -104,6 +109,7 @@ CREATE TABLE IF NOT EXISTS Livreur(
    PRIMARY KEY(id_livreur),
    FOREIGN KEY(id_adresse) REFERENCES Adresse(id_adresse) ON DELETE CASCADE
 );
+
 CREATE TABLE IF NOT EXISTS Livraison(
    id_livraison INT AUTO_INCREMENT,
    dateCommande_livraison DATETIME,
@@ -118,6 +124,7 @@ CREATE TABLE IF NOT EXISTS Livraison(
    FOREIGN KEY(id_vehicule) REFERENCES Vehicule(id_vehicule) ON DELETE CASCADE,
    FOREIGN KEY(id_adresse) REFERENCES Adresse(id_adresse) ON DELETE CASCADE
 );
+
 CREATE TABLE IF NOT EXISTS Garnir(
    id_pizza INT,
    id_ingredient INT,
@@ -141,16 +148,19 @@ CREATE TABLE IF NOT EXISTS Comporter(
 
 ```sql
 USE RaPizzDB;
+
 INSERT INTO Adresse (ville_adresse,codePostal_adresse,rue_adresse,numero_adresse)
 VALUES ('HYERES', '83400', 'GAMBETTA', '10bis'),
     ('CHAMPS-SUR-MARNES', '77420', 'NAPOLEON', '13'),
     ('MAZAMET', '81200', 'RUE DU PORT', '69'),
     ('HYERES', '83400', 'RUE DE LA CHAPELLE', '42');
+    
 INSERT INTO Client (nom_client,prenom_client,solde_client,id_adresse)
 VALUES ('MARINO', 'ENZO', 639, 1),
     ('GRECO', 'NINO', 100, 2),
     ('CONTI', 'MILO', 25, 3),
     ('GIORDANO', 'DIEGO', 10, 4);
+    
 INSERT INTO Ingredient (`nom_ingredient`)
 VALUES ('tomate'),
     ('salade'),
@@ -163,6 +173,7 @@ VALUES ('tomate'),
     ('jambon'),
     ('olive'),
     ('Mozarella');
+    
 INSERT INTO Pizza (nom_pizza, prix_pizza)
 VALUES ('Margaritta', 6.0),
     ('Reine', 6.5),
@@ -170,6 +181,7 @@ VALUES ('Margaritta', 6.0),
     ('Carnivore', 10.0),
     ('Vege', 10.5),
     ('Norvegienne', 12.0);
+    
 INSERT INTO Garnir (id_pizza, id_ingredient)
 VALUES (1, 5),
     (1, 11),
@@ -193,15 +205,18 @@ VALUES (1, 5),
     (6, 2),
     (6, 4),
     (6, 6);
+    
 INSERT INTO Vehicule (immatricule_vehicule, type_vehicule)
 VALUES ('AG-963-SR', 'VOITURE'),
     ('BK-568-SR', 'MOTO'),
     ('CD-455-GK', 'MOTO');
+    
 INSERT INTO Livreur (nom_livreur, prenom_livreur, id_adresse)
 VALUES ('ESCOBAR', 'PABLO', 1),
     ('ONYME', 'ANE', 2),
     ('LUIGI', 'COLOMBO', 3),
     ('MARIO', 'DE LUCA', 4);
+    
 INSERT INTO Livraison (
         dateCommande_livraison,
         dateLivraison_livraison,
@@ -294,6 +309,7 @@ VALUES (1, 1, 'NAINE',1),
 
 ```sql
 USE RaPizzDB;
+
 DROP TABLE IF EXISTS Garnir;
 DROP TABLE IF EXISTS Comporter;
 DROP TABLE IF EXISTS Ingredient;
@@ -309,47 +325,46 @@ DROP TABLE IF EXISTS Vehicule;
 
 Afin de faire cette partie, nous avons réalisé ces requêtes:
 
-​	Détection des véhicules n'ayant jamais servi :
+- Détection des véhicules n'ayant jamais servi :
 
 ```sql
-    SELECT `Vehicule`.`immatricule_vehicule` 
-    	FROM `Vehicule` 
-    	WHERE `Vehicule`.`id_vehicule` NOT IN (SELECT `Livraison`.`id_vehicule` FROM `Livraison`);
+SELECT `Vehicule`.`immatricule_vehicule` 
+    FROM `Vehicule` 
+    WHERE `Vehicule`.`id_vehicule` NOT IN (SELECT `Livraison`.`id_vehicule` FROM `Livraison`);
 ```
 
-​	Calcul du nombre de commandes par client :
+- Calcul du nombre de commandes par client :
 
 ```sql
-    SELECT `Client`.`nom_client`, count(`Livraison`.`id_livraison`) AS `NBCOMMANDE`
-        FROM `Client`,`Livraison`
-        WHERE `Client`.`id_client` = `Livraison`.`id_client`
-        GROUP BY `Client`.`nom_client`;
+SELECT `Client`.`nom_client`, count(`Livraison`.`id_livraison`) AS `NBCOMMANDE`
+    FROM `Client`,`Livraison`
+    WHERE `Client`.`id_client` = `Livraison`.`id_client`
+    GROUP BY `Client`.`nom_client`;
 ```
 
-​	Calcul de la moyenne des commandes :
+- Calcul de la moyenne des commandes :
 
 ```sql
-    SELECT AVG(quantite) FROM Comporter;
-
+SELECT AVG(quantite) FROM Comporter;
 ```
 
-​	Extraction des clients ayant commandé plus que la moyenne :
+- Extraction des clients ayant commandé plus que la moyenne :
 
 ```sql
-    SELECT nom_client FROM(
-        SELECT Livraison.id_client, nom_client, SUM(quantite)/count(Livraison.id_livraison) AS "NBMoy"
-            FROM Comporter
-            NATURAL JOIN Livraison
-            JOIN Client ON Livraison.id_client = Client.id_client
-            GROUP BY id_client) AS TABDATA
-    WHERE TABDATA.NBMoy > (SELECT AVG(quantite) FROM Comporter);
+SELECT nom_client FROM(
+    SELECT Livraison.id_client, nom_client, SUM(quantite)/count(Livraison.id_livraison) AS "NBMoy"
+        FROM Comporter
+        NATURAL JOIN Livraison
+        JOIN Client ON Livraison.id_client = Client.id_client
+        GROUP BY id_client) AS TABDATA
+WHERE TABDATA.NBMoy > (SELECT AVG(quantite) FROM Comporter);
 ```
 
 
 
 ## Partie 4 - Programmation
 
-Afin de faire cette partie, nous avons réalisé une application Java en client lourd, basée sur la technologie JavaFX, celle-ci possèdes plusieurs écrans, comme:
+Afin de faire cette partie, nous avons réalisé une application Java en client lourd, basée sur la technologie JavaFX. Cette application possède plusieurs écrans, comme :
 
 - Un écran de connexion à la base de données
 
@@ -359,8 +374,10 @@ Afin de faire cette partie, nous avons réalisé une application Java en client 
 
 ![Connexion](ImagesRapport/ListeCommande.png)
 
-- Un écran afin d'ajouter une commande
+- Un écran pour ajouter une commande
 
 ![Connexion](ImagesRapport/AddCommande.png)
 
-- Un écran afin d'afficher un ticket de caisse de la commande
+- Un écran pour afficher un ticket de caisse de la commande
+
+![image-20210620120549741](ImagesRapport/Ticket.png)
