@@ -360,7 +360,41 @@ SELECT nom_client FROM(
 WHERE TABDATA.NBMoy > (SELECT AVG(quantite) FROM Comporter);
 ```
 
+- Extraction des données pour la carte :
 
+```sql
+SELECT 
+    `Pizza`.`nom_pizza`,
+    `Pizza`.`prix_pizza`*0.75 AS `PrixNaine`,
+    `Pizza`.`prix_pizza`AS `PrixHumaine`,
+    `Pizza`.`prix_pizza`*1.5 AS `PrixOgre`,
+    GROUP_CONCAT(`Ingredient`.`nom_ingredient`SEPARATOR ', ' ) AS `Ingredient`
+    FROM `Pizza` 
+    JOIN `Garnir` ON `Garnir`.`id_pizza` = `Pizza`.`id_pizza` 
+    JOIN `Ingredient` ON `Garnir`.`id_ingredient` = `Ingredient`.`id_ingredient`
+    GROUP BY `Pizza`.`nom_pizza`;
+```
+
+- Extraction des clients ayant commandé plus que la moyenne :
+
+  ```sql
+  SELECT 
+      `Livreur`.`nom_livreur`,
+      `Vehicule`.`type_vehicule`,
+      `Pizza`.`nom_pizza`,`Pizza`.`prix_pizza`,
+      `Client`.`nom_client`,
+      `Livraison`.`dateCommande_livraison`,
+      `Livraison`.`dateLivraison_livraison`,
+      TIMEDIFF(`Livraison`.`dateLivraison_livraison`,`Livraison`.`dateCommande_livraison` ) > "00:30:00" AS `RETARD`
+  	FROM `Livreur` 
+      JOIN `Livraison` ON `Livraison`.`id_livreur` = `Livreur`.`id_livreur` 
+      JOIN `Vehicule` ON `Livraison`.`id_vehicule` = `Vehicule`.`id_vehicule` 
+      JOIN `Comporter` ON `Comporter`.`id_livraison` = `Livraison`.`id_livraison` 
+      JOIN `Pizza` ON `Comporter`.`id_pizza` = `Pizza`.`id_pizza`
+      JOIN `Client` ON `Livraison`.`id_client` = `Client`.`id_client`;
+  ```
+
+  
 
 ## Partie 4 - Programmation
 
