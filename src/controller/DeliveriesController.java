@@ -136,7 +136,7 @@ public class DeliveriesController extends MainController {
 		List<PizzaLivraison> pls = plm.getAll().stream()
 				.filter((item) -> item.getLivraison().getIdLivraison() == l.getIdLivraison())
 				.collect(Collectors.toList());
-
+		
 		tv_pizzaCommand.setItems(FXCollections.observableList(pls));
 	}
 
