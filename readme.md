@@ -394,7 +394,20 @@ GROUP BY `Pizza`.`nom_pizza`;
       JOIN `Client` ON `Livraison`.`id_client` = `Client`.`id_client`;
   ```
 
-  
+- Afin de gérer la Pizza offerte au bout de dix commande, nous avons écrit cette requètes SQL:
+
+```sql
+SELECT 
+	Livraison.id_client, 
+	nom_client,
+	ABS(SUM(quantite) % 10 - 10) AS "Nombre de pizza avant la pizza Gratuite"
+FROM Comporter
+NATURAL JOIN Livraison
+JOIN Client ON Livraison.id_client = Client.id_client
+GROUP BY id_client;
+```
+
+
 
 ## Partie 4 - Programmation
 
