@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS Client(
    solde_client DECIMAL(5,2),
    id_adresse INT NOT NULL,
    PRIMARY KEY(id_client),
-   FOREIGN KEY(id_adresse) REFERENCES Adresse(id_adresse)
+   FOREIGN KEY(id_adresse) REFERENCES Adresse(id_adresse) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS Livreur(
    id_livreur INT AUTO_INCREMENT,
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS Livreur(
    prenom_livreur VARCHAR(50),
    id_adresse INT NOT NULL,
    PRIMARY KEY(id_livreur),
-   FOREIGN KEY(id_adresse) REFERENCES Adresse(id_adresse)
+   FOREIGN KEY(id_adresse) REFERENCES Adresse(id_adresse) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS Livraison(
    id_livraison INT AUTO_INCREMENT,
@@ -52,17 +52,17 @@ CREATE TABLE IF NOT EXISTS Livraison(
    id_vehicule INT NOT NULL,
    id_adresse INT NOT NULL,
    PRIMARY KEY(id_livraison),
-   FOREIGN KEY(id_client) REFERENCES Client(id_client),
-   FOREIGN KEY(id_livreur) REFERENCES Livreur(id_livreur),
-   FOREIGN KEY(id_vehicule) REFERENCES Vehicule(id_vehicule),
-   FOREIGN KEY(id_adresse) REFERENCES Adresse(id_adresse)
+   FOREIGN KEY(id_client) REFERENCES Client(id_client) ON DELETE CASCADE,
+   FOREIGN KEY(id_livreur) REFERENCES Livreur(id_livreur) ON DELETE CASCADE,
+   FOREIGN KEY(id_vehicule) REFERENCES Vehicule(id_vehicule) ON DELETE CASCADE,
+   FOREIGN KEY(id_adresse) REFERENCES Adresse(id_adresse) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS Garnir(
    id_pizza INT,
    id_ingredient INT,
    PRIMARY KEY(id_pizza, id_ingredient),
-   FOREIGN KEY(id_pizza) REFERENCES Pizza(id_pizza),
-   FOREIGN KEY(id_ingredient) REFERENCES Ingredient(id_ingredient)
+   FOREIGN KEY(id_pizza) REFERENCES Pizza(id_pizza) ON DELETE CASCADE,
+   FOREIGN KEY(id_ingredient) REFERENCES Ingredient(id_ingredient) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Comporter(
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS Comporter(
    id_livraison INT,
    quantite INT,
    taille_pizza ENUM ('NAINE','HUMAINE','OGRESSE'),
-   PRIMARY KEY(id_pizza, id_livraison, taille_pizza),
-   FOREIGN KEY(id_pizza) REFERENCES Pizza(id_pizza),
-   FOREIGN KEY(id_livraison) REFERENCES Livraison(id_livraison)
+   PRIMARY KEY(id_pizza, id_livraison, taille_pizza) ON DELETE CASCADE,
+   FOREIGN KEY(id_pizza) REFERENCES Pizza(id_pizza) ON DELETE CASCADE,
+   FOREIGN KEY(id_livraison) REFERENCES Livraison(id_livraison) ON DELETE CASCADE
 );
