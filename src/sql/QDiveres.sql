@@ -21,4 +21,14 @@ NATURAL JOIN Livraison
 JOIN Client ON Livraison.id_client = Client.id_client
 GROUP BY id_client;
 	
+<--! Nombre de pizzas moyenne par commande -->
+SELECT AVG(quantite) FROM Comporter;
 
+<--! Personnes commandant plus que la moyenne poar commande-->
+SELECT nom_client FROM(
+    SELECT Livraison.id_client, nom_client, SUM(quantite)/count(Livraison.id_livraison) AS "NBMoy"
+        FROM Comporter
+        NATURAL JOIN Livraison
+        JOIN Client ON Livraison.id_client = Client.id_client
+		GROUP BY id_client) AS TABDATA
+WHERE TABDATA.NBMoy > (SELECT AVG(quantite) FROM Comporter);
