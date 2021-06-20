@@ -24,7 +24,7 @@ GROUP BY id_client;
 <--! Nombre de pizzas moyenne par commande -->
 SELECT AVG(quantite) FROM Comporter;
 
-<--! Personnes commandant plus que la moyenne poar commande-->
+<--! Personnes commandant plus que la moyenne par commande-->
 SELECT nom_client FROM(
     SELECT Livraison.id_client, nom_client, SUM(quantite)/count(Livraison.id_livraison) AS "NBMoy"
         FROM Comporter
