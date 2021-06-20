@@ -31,5 +31,6 @@
           <TableColumn fx:id="tvColumn_pizza_price" minWidth="9.0" prefWidth="59.0" text="Prix" />
         </columns>
       </TableView>
+      <Button fx:id="bt_ticket" layoutX="426.0" layoutY="480.0" mnemonicParsing="false" onAction="#getInvoice" prefHeight="28.0" prefWidth="68.0" text="Ticket" />
    </children>
 </AnchorPane>

@@ -65,10 +65,12 @@ public class DeliveriesController extends MainController {
 
 	@FXML
 	private Button bt_removeLivraison;
+	
+    @FXML
+    private Button bt_ticket;
 
 	private Connection c;
 	private ObservableList<Livraison> listDeliveries;
-	private ObservableList<Pizza> listPizzas;
 
 	private LivraisonManager lm;
 	private Livraison l;
@@ -129,7 +131,6 @@ public class DeliveriesController extends MainController {
 	void getSpecificLivraison(MouseEvent event) {
 		l = tv_Deliveries.getSelectionModel().getSelectedItem();
 
-		// TODO: ï¿½ revoir pour la gestion de sï¿½lection de la livraison
 		plm = new PizzaLivraisonManager(c);
 		List<PizzaLivraison> pls = plm.getAll().stream()
 				.filter((item) -> item.getLivraison().getIdLivraison() == l.getIdLivraison())
@@ -137,5 +138,27 @@ public class DeliveriesController extends MainController {
 		
 		tv_pizzaCommand.setItems(FXCollections.observableList(pls));
 	}
+	
+    @FXML
+    void getInvoice(ActionEvent event) {
+    	//on récupère la list des pizzaslivraison en fonction de la livraison
+    	plm = new PizzaLivraisonManager(c);
+		List<PizzaLivraison> pls = plm.getAll().stream()
+				.filter((item) -> item.getLivraison().getIdLivraison() == l.getIdLivraison())
+				.collect(Collectors.toList());
+		
+		//calcul du prix
+		double sum = 0;
+		for (PizzaLivraison pl : pls) {
+			sum += pl.getQuantite() * applyPriceChangeByPizzaWidth(pl.getTaille(), pl.getPizza().getPrixPizza());
+		}
+		
+		//on envoie toutes les données nécessaires à l'affichage du ticket
+		ApplicationManager.getInstance().setCurrentDelivery(l);
+		ApplicationManager.getInstance().setDeliveryPrice(sum);
+		ApplicationManager.getInstance().setDeliveryPizzaList(pls);
+		
+		sendData(event, "Invoice");
+    }
 
 }
